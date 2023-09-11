@@ -53,7 +53,7 @@ export default function Home() {
   const [messageError, setMessageError] = useState("");
   const [noiError, setNOIError] = useState("");
   const [sizeError, setSizeError] = useState("");
-  const [selectedValue, setSelectedValue] = useState('Dall-E 2');
+  const [selectedValue, setSelectedValue] = useState('DALL·E 2');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [refreshGallery, setRefreshGallery] = useState<boolean>(false);
 
@@ -112,7 +112,7 @@ export default function Home() {
     setLoading(0);
    
   };
-  const options = ['Dall-E 2', 'MidJourney', 'Adobe FireFly'];
+  const options = ['DALL·E 2', 'MidJourney', 'Adobe FireFly'];
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -282,7 +282,7 @@ export default function Home() {
             </div>
             )}
           <div className="space-padding"></div>
-          {selectedValue === 'Dall-E 2' ? (
+          {selectedValue === 'DALL·E 2' ? (
             <div className="form-container">
 
             <div className="form-row">

@@ -45,16 +45,6 @@ export default function Home() {
       }   
     };
 
-
-   
-
-
-   
-    //<Template onSelectedImage={handleSelectedTemplate} />
-    //<ImageGallery onImageSelect={handleSelectedTemplate} />
-    //<button onClick={handleContinueClick} className="sidebar-button work-bench-button">
-    //<p>Continue</p>
-    //<FaArrowRight style={{ color: "white" }} />
     
 
   return (
