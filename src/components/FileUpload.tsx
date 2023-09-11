@@ -3,9 +3,10 @@ import React, { useRef } from 'react';
 interface FileUploadProps {
   onFileSelected: (file: File) => void;
   fileLocation: string; // Add a fileLocation prop
+  onUploadComplete: () => void;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, fileLocation }) => {
+const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, fileLocation, onUploadComplete }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = async () => {
@@ -28,6 +29,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, fileLocation })
           if (response.ok) {
             const data = await response.json();
             console.log(data);
+            onUploadComplete();
           } else {
             console.error('Failed to upload the file.');
           }

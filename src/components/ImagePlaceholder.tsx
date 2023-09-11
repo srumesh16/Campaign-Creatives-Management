@@ -10,7 +10,7 @@ const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({ folderName, fileLoc
     
     
     
-    const imageFile = '/templates/' + fileLocation
+    const imageFile = '/' + folderName + '/'  + fileLocation
     return (
         <div style={{ 
             width: '250px',

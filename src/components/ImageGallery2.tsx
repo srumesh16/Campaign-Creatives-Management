@@ -3,14 +3,16 @@ import React, { useEffect, useState } from 'react';
 interface ImageGalleryProps {
     onImageSelect: (imageName: string) => void;
     fileLocation: string;
+    refresh: boolean;
 }
 
-const ImageGallery: React.FC<ImageGalleryProps> = ({ onImageSelect, fileLocation }) => {
+const ImageGallery: React.FC<ImageGalleryProps> = ({ onImageSelect, fileLocation, refresh }) => {
     const [imageUrls, setImageUrls] = useState<string[]>([]);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [filesFound, setFilesFound] = useState<boolean>(false);
-
+    
     useEffect(() => {
+        //if(refresh){
         async function fetchImageUrls() {
             try {
                 const response = await fetch('/api/images?fileLocation=' + fileLocation);
@@ -27,9 +29,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ onImageSelect, fileLocation
             } catch (error) {
                 console.error('Error fetching image URLs:', error);
             }
+        } 
+        if(refresh || filesFound !== null){
+            fetchImageUrls();
         }
-        fetchImageUrls();
-    }, []);
+        
+    }, [fileLocation, refresh, filesFound]);
 
 
     const handleImageClick = (imageUrl: string) => {

@@ -55,6 +55,7 @@ export default function Home() {
   const [sizeError, setSizeError] = useState("");
   const [selectedValue, setSelectedValue] = useState('Dall-E 2');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [refreshGallery, setRefreshGallery] = useState<boolean>(false);
 
   const router = useRouter();
   const template = router.query.template as string;
@@ -141,6 +142,10 @@ export default function Home() {
     setSelectedGenderValue(value);
   };
 
+  const handleUploadComplete = () => {
+    setRefreshGallery((prev) => !prev);
+  }
+
   //handling selected color 
   const handleColoronClick = (value: string) => {
     setColor(value);
@@ -225,7 +230,7 @@ export default function Home() {
             
             <FaCloudUploadAlt className="uploadIcon" />
             <label>
-            <FileUpload onFileSelected={handleFileSelected} fileLocation={dimensions}/>
+            <FileUpload onFileSelected={handleFileSelected} fileLocation={dimensions} onUploadComplete={handleUploadComplete}/>
               {selectedFile && (
                 ""
               )}
@@ -233,7 +238,7 @@ export default function Home() {
           </div>
           <hr className="sidebar-divider"></hr>
           <div className ="scrollable-container">
-            <ImageGallery2 onImageSelect={handleSelectedTemplate} fileLocation={dimensions} />
+            <ImageGallery2 onImageSelect={handleSelectedTemplate} fileLocation={dimensions} refresh={refreshGallery} />
             
           </div>
           
@@ -447,9 +452,9 @@ export default function Home() {
               
               <div className="form-container">
               {loading === 0 ? (
-                  <h2 style={{ color: 'white' }}>Generated images will appear here...</h2>
+                  <h2 style={{ color: 'white', textAlign: 'center' }}>Generated images will appear here...</h2>
                 ) : loading === 1 ? (
-                  <h2 style={{ color: 'white' }}>...Generating images for "A {selectedColor} toned picture of {message}. The Content Type is {selectedContentType}. This picture should be targetted to an audience with an age range between {ta} and toward {selectedGenderValue} genders. The theme of this picture is {theme}"</h2>
+                  <h2 style={{ color: 'white', textAlign: 'center' }}>Generating images for "A {selectedColor} toned picture of {message}. The Content Type is {selectedContentType}. This picture should be targetted to an audience with an age range between {ta} and toward {selectedGenderValue} genders. The theme of this picture is {theme}"</h2>
                 ) : loading === 2 && result !== null ? (
                   <GeneratedImages2 data={result.data} />
                 ) : (
