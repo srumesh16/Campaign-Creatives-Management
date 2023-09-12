@@ -98,7 +98,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, fileLocation, o
         <button className="upload-button" onClick={handleUploadClick}>Upload Template</button>
       </div>
       
-      {uploadSuccess === false ? (<div style={{ alignItems: 'center', color: 'white', padding: '10px' }}>Error: {errorMessage}</div>) :("")}
+      {uploadSuccess === false ? (<div style={{ alignItems: 'center', color: 'black', padding: '10px' }}>Error: {errorMessage}</div>) :("")}
     </div>
   );
 };

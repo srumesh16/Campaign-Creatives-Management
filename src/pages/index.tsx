@@ -316,6 +316,7 @@ export default function Home() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  border: '1px solid black'
                 }}>
                 Choose a template to start
               </div>
