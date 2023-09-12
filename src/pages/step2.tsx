@@ -175,20 +175,26 @@ export default function Home() {
   
   //Dalle 2 Edit Images API Call
   const handleButtonClick = async () => {
-    if (!message) {
+    console.log("generate button clicked");
+    /*if (!message) {
+      console.log("inside message: "  + message);
       setMessageError("Please fill in this fields.");
     }
     if(!noi){
+      console.log("inside !noi : " + noi);
       setNOIError("Please fill in this field.");
     }
-    if(noi > '10'){
-      console.log("inside required if")
-      setNOIError("Image count cannot be more than 10")
+    if(Number(noi) > 10){
+      console.log("inside noi > 10: " + Number(noi));
+      setNOIError("Image count cannot be more than 10");
     }
     if(!selectedSizeValue){
+      console.log("inside size: " + selectedSizeValue);
       setSizeError("Please fill in this field.");
     }
-    if(message && noi && noi <= '10' && selectedSizeValue){
+    if(message && noi && noi <= '10' && selectedSizeValue){*/
+      console.log("calling api");
+      console.log(process.env.OPENAI_API_KEY);
     setLoading(1); 
     setMessageError('');
     setSizeError('');
@@ -198,6 +204,7 @@ export default function Home() {
         
         const response = await axios.get('http://localhost:3000/api/imageEditorApi',{
           params: {
+              folerName: dimensions,
               image: selectedTemplate,
               size: selectedSizeValue,
               n: noi,
@@ -212,7 +219,7 @@ export default function Home() {
         console.error('Error making API call:', error);
         setLoading(3);
     } 
-  }
+  //}
 };
 
   

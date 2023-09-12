@@ -96,7 +96,7 @@ body::-webkit-scrollbar {
 html,
 body {
   height: 100%;
-  max-height: 100vh;
+  
   overflow: scroll;
 }
 
@@ -146,15 +146,24 @@ body {
   text-align: center;
 }
 
+.sub-text2 {
+  font-style: italic;
+  font-weight: 400;
+  color: white;
+  text-align: left;
+  padding: 10px 10px 10px 20px;
+}
 
 .uploadContainer {
   display: flex;
+  flex-direction: column; /* To center-align vertically */
+  align-items: center;
+  justify-content: center; /* To center-align horizontally */
   max-width: 500px;
-  align-items: right;
   color: white;
-  justify-content: flex-end;
-  padding-bottom: 10px;
+  padding: 15px; /* Apply 15px padding on all sides */
 }
+
 .uploadContainer2 {
   display: flex;
   width: 100%;
@@ -180,9 +189,10 @@ body {
 }
 
 .sidebar-container {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 400px;
   height: 100%;
-  max-width: 400px;
   background-color: #2f2c53;
 }
 
@@ -200,7 +210,7 @@ body {
   color: white;
   font-style: italic;
   font-size: 20px;
-  width: 100%;
+  width: 100vh;
   text-align: center;
   padding-top: 10px;
   
@@ -214,8 +224,8 @@ body {
 
 .scrollable-container {
   position:sticky;
-  display:flex;
-  max-height: 600px;
+  width:100%;
+  height: 800px;
   overflow-y: auto;
   padding-left: 20px;
   max-width: 450px;
@@ -326,8 +336,8 @@ body {
   position: sticky;
   display: flex;
   flex-direction: column;
-  width: 80%;
-  max-width: 1600px;
+  width: 100%;
+  
   margin: 0 auto;
   align-items: center;
   background-color: #2f2c53;
@@ -335,6 +345,7 @@ body {
   border-radius: 3px;
   padding: 10px 10px 10px 10px;
   height:100%;
+  flex-grow: 1;
 }
 .final-container {
   overflow-y: scroll;
@@ -1154,9 +1165,9 @@ a {
 .radiobuttonGroup {  
   display: flex;  
   flex-direction: row;  
-  align-items: center;  
+  align-items: left;  
   gap: 10px;
-  margin-left: 40px;
+  
 }
 .radiobutton {  
   padding: 10px 20px;  
@@ -1305,4 +1316,59 @@ a {
   font-weight: bold;
   color: white;
   text-align: center;
+}
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.selected-option {
+  background-color: white;
+  border: 2px solid #f46f22;
+  border-radius: 3px;
+  color: black;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-options {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 2px solid #f46f22;
+  border-radius: 3px;
+  border-top: none;
+  width: 100%;
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.option:hover {
+  background-color: #f46f22;
+  color: white;
+}
+
+.option-text {
+  margin-right: 20px; /* Adjust the margin as needed */
+}
+
+.llm-container {
+  display: flex; /* Use flexbox */
+  align-items: center; /* Vertically align items */
+  gap: 10px; /* Add a gap of 10px between the items */
+  margin-top: 20px;
+}
+
+.parent-container{
+  display: flex;
+  height: 100vh;
+}
+.upload-button {
+  text-decoration: underline;
 }

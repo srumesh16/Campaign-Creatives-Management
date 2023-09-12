@@ -15,13 +15,15 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ onImageSelect, fileLocation
         //if(refresh){
         async function fetchImageUrls() {
             try {
+                console.log("calling api: /api/images?fileLocation=" + fileLocation);
+                
                 const response = await fetch('/api/images?fileLocation=' + fileLocation);
                 const data = await response.json();
                 if(data.imageUrls === undefined){
-                    console.log("inside imageUrls undefined");
+                    //console.log("inside imageUrls undefined");
                     setFilesFound(false);
                 } else {
-                    console.log("inside imageUrls undefined");
+                    //console.log("inside imageUrls undefined");
                     setImageUrls(data.imageUrls);
                     setFilesFound(true);
                 }

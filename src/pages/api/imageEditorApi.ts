@@ -8,12 +8,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     try {
 
+        const folderName = req.query.folerName as string;
         const image = req.query.image as string;
         const prompt = req.query.prompt as string;
         const n = req.query.n as string;
         const size = req.query.size as string;
 
-        const filePath = path.join(process.cwd(), 'public', 'templates', image);
+        const filePath = path.join(process.cwd(), 'public', folderName, image);
         const imageBuffer = fs.readFileSync(filePath);
 
         const formData = new FormData();

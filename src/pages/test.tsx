@@ -1,79 +1,107 @@
-import { GetServerSideProps, NextPage } from "next";
-import { useState } from "react";
-import axios from "axios";
-import fs from "fs/promises";
-import path from "path";
-import Link from "next/link";
+import Image from 'next/image';
+import Header from '../components/header';
+import Template from '../components/template';
+import ImageGallery from '../components/ImageGallery';
 
-interface Props {
-  dirs: string[];
-}
 
-const Home: NextPage<Props> = ({ dirs }) => {
-  const [uploading, setUploading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
-  const [selectedFile, setSelectedFile] = useState<File>();
+import { FaCloudUploadAlt, FaArrowRight } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Router from 'next/router';
 
-  const handleUpload = async () => {
-    setUploading(true);
-    try {
-      if (!selectedFile) return;
-      const formData = new FormData();
-      formData.append("myImage", selectedFile);
-      const { data } = await axios.post("/api/image", formData);
-      console.log(data);
-    } catch (error: any) {
-      console.log(error.response?.data);
-    }
-    setUploading(false);
+
+export default function Home() {
+
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+  const [selectedButtonValue, setSelectedButtonValue] = useState<string | null>(null);
+  const [selectedGenderValue, setSelectedGenderValue] = useState<string | null>(null);
+
+  const handleSelectedTemplate = (imageName: string) =>{
+    setSelectedTemplate(imageName);
   };
 
-  return (
-    <div>
-      <label>
-        <input
-          type="file"
-          hidden
-          onChange={({ target }) => {
-            if (target.files) {
-                console.log("upload file clicked!");
-                const file = target.files[0];
-                setSelectedImage(URL.createObjectURL(file));
-                setSelectedFile(file);
-            }
-          }}
-        />
-        <div>
-          <button>Upload Image</button>
-        </div>
-      </label>
-      <button
-        onClick={handleUpload}
-        disabled={uploading}
-        style={{ opacity: uploading ? ".5" : "1" }}
-        className="bg-red-600 p-3 w-32 text-center rounded text-white"
-      >
-        {uploading ? "Uploading.." : "Upload"}
-      </button>
-      <div className="mt-20 flex flex-col space-y-3">
-        {dirs.map((item) => (
-          <Link key={item} href={"/images/" + item}>
-            <a className="text-blue-500 hover:underline">{item}</a>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-export const getServerSideProps: GetServerSideProps = async () => {
-  const props = { dirs: [] };
-  try {
-    const dirs = await fs.readdir(path.join(process.cwd(), "/public/images"));
-    props.dirs = dirs as any;
-    return { props };
-  } catch (error) {
-    return { props };
-  }
-};
+ 
 
-export default Home;
+  //handling selection of Size  
+  const handleButtononClick =(value: string) => {
+    setSelectedButtonValue(value);
+    
+  };
+
+  //handling selection of gender
+  const handleGenderClick = (value: string) => {
+    setSelectedGenderValue(value);
+  };
+
+ 
+    const handleContinueClick = () => {
+      if(selectedTemplate === null){
+        alert("Please select one of the ad banners to proceed!")
+      } else{
+        Router.push({
+          pathname: '/step2',
+          query: { template: selectedTemplate}
+        })
+      }   
+    };
+
+    
+
+  return (
+    <main>
+      <Header />
+      
+        <div className ="temselection-container">
+          <div className = "header-container">
+            <h1 className ="h1"> AD BANNER TEMPLATES </h1>
+            <p className="sub-text"> Step 1: Choose a banner </p>
+          </div>
+          <div className="section-container">
+            <div className="sub-header-container">
+              HORIZONTAL TEMPLATES
+            </div>
+            <hr className="sidebar-divider"></hr>
+            <div className="img-gallery">
+              <div className="img-scroller">
+                <ImageGallery onImageSelect={handleSelectedTemplate} fileLocation='horizontal' />
+              </div>
+              
+            </div>
+            
+          </div>
+          <div className="section-container">
+          <div className="sub-header-container">
+              VERTICAL TEMPLATES
+            </div>
+            <hr className="sidebar-divider"></hr>
+            <div className="img-gallery">
+              <div className="img-scroller">
+                <ImageGallery onImageSelect={handleSelectedTemplate} fileLocation='vertical' />
+              </div>
+              
+            </div>
+          </div>
+          <div className="section-container">
+          <div className="sub-header-container">
+              SQUARE TEMPLATES
+            </div>
+            <hr className="sidebar-divider"></hr>
+            <div className="img-gallery">
+              <div className="img-scroller">
+                <ImageGallery onImageSelect={handleSelectedTemplate} fileLocation='square' />
+              </div>
+              
+            </div>
+          </div>
+
+          <div className="button-container">
+            <button onClick={handleContinueClick} className="button-align-right work-bench-button">
+              <p>Continue</p>
+            </button>
+          </div>
+        </div>
+        
+      
+    </main>
+  )
+}
