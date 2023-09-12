@@ -292,13 +292,13 @@ const handleGenderClick = (value: string) => {
 
               <div className="form-container">
                 {loading === 0 ? (
-                  <h2 style={{ color: 'white', textAlign: 'center' }}>Generated images will appear here...</h2>
+                  <h2 style={{ color: 'black', textAlign: 'center' }}>Generated images will appear here...</h2>
                 ) : loading === 1 ? (
-                  <h2 style={{ color: 'white', textAlign: 'center' }}>Generating images for "A {selectedColor} toned picture of {message}. The Content Type is {selectedContentType}. This picture should be targetted to an audience with an age range between {ta} and toward {selectedGenderValue} genders. The theme of this picture is {theme}"</h2>
+                  <h2 style={{ color: 'black', textAlign: 'center' }}>Generating images for "A {selectedColor} toned picture of {message}. The Content Type is {selectedContentType}. This picture should be targetted to an audience with an age range between {ta} and toward {selectedGenderValue} genders. The theme of this picture is {theme}"</h2>
                 ) : loading === 2 && result !== null ? (
                   <GeneratedImages2 data={result.data} />
                 ) : (
-                  <h2 style={{ color: 'white' }}>Error while calling API</h2>
+                  <h2 style={{ color: 'black' }}>Error while calling API</h2>
                 )
                 }
 

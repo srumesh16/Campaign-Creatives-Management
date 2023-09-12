@@ -142,14 +142,14 @@ body {
 .sub-text {
   font-style: italic;
   font-weight: 400;
-  color: white;
+  color: black;
   text-align: center;
 }
 
 .sub-text2 {
   font-style: italic;
   font-weight: 400;
-  color: white;
+  color: black;
   text-align: left;
   padding: 10px 10px 10px 20px;
 }
@@ -177,6 +177,7 @@ body {
 .uploadIcon {
   font-size: 30px;
   padding-left: 5px;
+  color: black;
 }
 
 .uploadText{
@@ -193,12 +194,14 @@ body {
   flex-direction: column;
   flex: 0 0 400px;
   height: 100%;
-  background-color: #2f2c53;
+  background-color: #E4DCCF;
+  border: 2px solid black;
+  border-radius: 3px;
 }
 
 
 .banner-header {
-  color: white;
+  color: black;
   font-weight: 200;
   font-size: 16px;
   width: 100%;
@@ -232,6 +235,7 @@ body {
   border: none;
   padding-top: 10px;
   gap: 5px;
+  color: #E4DCCF;
 }
 
 .templates-gallery {
@@ -340,8 +344,8 @@ body {
   
   margin: 0 auto;
   align-items: center;
-  background-color: #2f2c53;
-  border: 2px solid #f46f22;
+  background-color: #E4DCCF;
+  border: 2px solid black;
   border-radius: 3px;
   padding: 10px 10px 10px 10px;
   height:100%;
@@ -820,7 +824,7 @@ a {
   padding: 17px 8px;
   position: relative;
   width: 100%;
-  background-color: #514f72;
+  background-color: #9d542a;
 }
 
 .frame-3 {
@@ -844,7 +848,7 @@ a {
 }
 
 .product-support {
-  color: #a7a4c4;
+  color: white;
   font-family: var(--font-family-poppins);
   font-size: var(--font-size-l);
   font-weight: 400;
@@ -1081,7 +1085,7 @@ a {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: white;
+  color: black;
 }
 
 .hiddendiv {
@@ -1276,7 +1280,7 @@ a {
 .img-scroller{
   margin:4px;
   padding:4px;
-  background-color: f46f22;
+  background-color: #f46f22;
   width: 100%;
   height: 150px;
   overflow-x: hidden;
@@ -1370,5 +1374,6 @@ a {
   height: 100vh;
 }
 .upload-button {
+  color: black;
   text-decoration: underline;
 }
