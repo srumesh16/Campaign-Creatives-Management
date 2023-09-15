@@ -1,11 +1,17 @@
 import React from 'react'
 import { FaSignOutAlt } from "react-icons/fa";
+import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 
 
 const header = () => {
-  function externalSignOut() {
-    
+
+  const{data:session} = useSession();
+  const router = useRouter();
+
+  const handleSignOut = async() =>{
+    await signOut({ callbackUrl: "/login"});
   };
 
   
@@ -21,9 +27,9 @@ const header = () => {
             <div className="product-support">Campaign Creatives Management</div>
         </div>
         <div className="frame-2-1">
-              <div className="name">Sucharitha Rumesh</div>
+              <div className="name">{session?.user?.name}</div>
             
-            <button className="logout-button"> 
+            <button onClick ={handleSignOut} className="logout-button"> 
             <FaSignOutAlt height="14px" width="14px" color="white"/>
             </button>
           </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import GeneratedImages2 from '../components/generatedImages2';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 interface DalleFormProps {
   folderName: string;
@@ -30,6 +31,8 @@ const DalleForm: React.FC<DalleFormProps> = ({ folderName, template }) => {
   const [selectedColor, setColor] = useState<string | null>(null);
   let dimensions: string = "";
   const [result, setResult] = useState<ApiResponse | null>(null);
+  const {data:session} = useSession();
+  const userName = session?.user?.email;
 
   // handling selection of Size
   const handleSizeonClick = (value: string) => {
@@ -109,14 +112,30 @@ const handleGenderClick = (value: string) => {
         },
       });
       setResult(response.data);
-      console.log("Result from API Call: " + result);
       setLoading(2);
+      if(response.status === 200) {
+        const res = await axios.get('http://localhost:3000/api/storeUserSessions', {
+        params: {
+          userName: userName?.split('@')[0],
+          llm: "DALLE 2",
+          theme: theme,
+          audience: ta,
+          gender: selectedGenderValue,
+          size: selectedSizeValue,
+          n: noi,
+          contentType: selectedContentType,
+          color: selectedColor,
+          result: result
+        },
+      });
+      }
+      
 
     } catch (error) {
       console.error('Error making API call:', error);
       setLoading(3);
     }
-    //}
+   // }
   };
 
   return (
