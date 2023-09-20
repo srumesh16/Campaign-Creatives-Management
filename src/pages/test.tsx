@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Header from '../components/header';
 import Template from '../components/template';
 import ImageGallery from '../components/ImageGallery';
+import SessionDalleForm from '@/components/sessionDalleForm';
 
 
 import { FaCloudUploadAlt, FaArrowRight } from 'react-icons/fa';
@@ -45,62 +46,25 @@ export default function Home() {
       }   
     };
 
+    const handleSessionComplete = (success: boolean) => {
     
+      //console.log("inside session details refresh")
+      /*if(refreshUserSessions){
+        setRefreshUserSessions(true);
+        console.log("inside handleSessionComplete - refresh user session: " +refreshUserSessions);
+      } else {
+        setRefreshUserSessions(false);
+        console.log("inside handleSessionComplete - refresh user session: " +refreshUserSessions);
+      }*/
+      
+      
+  
+    }
 
   return (
     <main>
-      <Header />
-      
-        <div className ="temselection-container">
-          <div className = "header-container">
-            <h1 className ="h1"> AD BANNER TEMPLATES </h1>
-            <p className="sub-text"> Step 1: Choose a banner </p>
-          </div>
-          <div className="section-container">
-            <div className="sub-header-container">
-              HORIZONTAL TEMPLATES
-            </div>
-            <hr className="sidebar-divider"></hr>
-            <div className="img-gallery">
-              <div className="img-scroller">
-                <ImageGallery onImageSelect={handleSelectedTemplate} fileLocation='horizontal' />
-              </div>
-              
-            </div>
-            
-          </div>
-          <div className="section-container">
-          <div className="sub-header-container">
-              VERTICAL TEMPLATES
-            </div>
-            <hr className="sidebar-divider"></hr>
-            <div className="img-gallery">
-              <div className="img-scroller">
-                <ImageGallery onImageSelect={handleSelectedTemplate} fileLocation='vertical' />
-              </div>
-              
-            </div>
-          </div>
-          <div className="section-container">
-          <div className="sub-header-container">
-              SQUARE TEMPLATES
-            </div>
-            <hr className="sidebar-divider"></hr>
-            <div className="img-gallery">
-              <div className="img-scroller">
-                <ImageGallery onImageSelect={handleSelectedTemplate} fileLocation='square' />
-              </div>
-              
-            </div>
-          </div>
-
-          <div className="button-container">
-            <button onClick={handleContinueClick} className="button-align-right work-bench-button">
-              <p>Continue</p>
-            </button>
-          </div>
-        </div>
-        
+      HELLO
+      <SessionDalleForm timestamp="1695068839795" onSessionComplete={handleSessionComplete} />
       
     </main>
   )

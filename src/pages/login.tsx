@@ -9,6 +9,8 @@ const Login = () => {
         signIn('google',{ callbackUrl: "http://localhost:3000"});
     };
 
+
+            
   return (
     <div className="login-container">
         <div className="login-box">

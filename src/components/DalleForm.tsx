@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import GeneratedImages2 from '../components/generatedImages2';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import { time } from 'console';
 
 interface DalleFormProps {
   folderName: string;
   template: string;
+  onSessionComplete: (success:boolean) => void;
+  
+  
 }
 interface ImageData {
   url: string;
@@ -16,7 +20,7 @@ interface ApiResponse {
   created: number;
   data: ImageData[];
 }
-const DalleForm: React.FC<DalleFormProps> = ({ folderName, template }) => {
+const DalleForm: React.FC<DalleFormProps> = ({ folderName, template, onSessionComplete }) => {
   const [messageError, setMessageError] = useState("");
    const [loading, setLoading] = useState(0);
   const [noiError, setNOIError] = useState("");
@@ -32,8 +36,9 @@ const DalleForm: React.FC<DalleFormProps> = ({ folderName, template }) => {
   let dimensions: string = "";
   const [result, setResult] = useState<ApiResponse | null>(null);
   const {data:session} = useSession();
-  const userName = session?.user?.email;
+  const userName = session?.user?.email as string;
 
+  
   // handling selection of Size
   const handleSizeonClick = (value: string) => {
     setSelectedSizeValue(value);
@@ -72,10 +77,10 @@ const handleGenderClick = (value: string) => {
         break;
     }
   };
-
+  
   //Dalle 2 Edit Images API Call
   const handleButtonClick = async () => {
-    console.log("generate button clicked");
+    
     /*if (!message) {
       console.log("inside message: "  + message);
       setMessageError("Please fill in this fields.");
@@ -93,8 +98,8 @@ const handleGenderClick = (value: string) => {
       setSizeError("Please fill in this field.");
     }
     if(message && noi && noi <= '10' && selectedSizeValue){*/
-    console.log("calling api");
-    console.log(process.env.OPENAI_API_KEY);
+    
+   
     setLoading(1);
     setMessageError('');
     setSizeError('');
@@ -112,12 +117,21 @@ const handleGenderClick = (value: string) => {
         },
       });
       setResult(response.data);
+      
       setLoading(2);
-      if(response.status === 200) {
-        const res = await axios.get('http://localhost:3000/api/storeUserSessions', {
+    } catch (error) {
+      console.error('Error making Edit Image API call:', error);
+      setLoading(3);
+      //onSessionComplete(false);
+    }
+
+    try {
+      
+      await axios.get('http://localhost:3000/api/storeUserSessions', {
         params: {
-          userName: userName?.split('@')[0],
-          llm: "DALLE 2",
+          userName: userName.split("@")[0],
+          message: message,
+          llm: "DALLE2",
           theme: theme,
           audience: ta,
           gender: selectedGenderValue,
@@ -125,15 +139,15 @@ const handleGenderClick = (value: string) => {
           n: noi,
           contentType: selectedContentType,
           color: selectedColor,
-          result: result
+          folderName: folderName,
+          template: template,
+          result: JSON.stringify(result?.data)
         },
       });
-      }
-      
-
-    } catch (error) {
-      console.error('Error making API call:', error);
-      setLoading(3);
+      onSessionComplete(true);
+    } catch (error){
+      console.log("Error making store user session call", error);
+      onSessionComplete(false);
     }
    // }
   };

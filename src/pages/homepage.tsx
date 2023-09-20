@@ -12,17 +12,19 @@ import fs from "fs/promises";
 import path from "path";
 import DalleForm from '../components/DalleForm';
 import { useSession } from 'next-auth/react';
+import UserSessionsSummary from '@/components/userSessionsSummary';
+import { time } from 'console';
 
 
 
-interface ImageData {
+/*interface ImageData {
   url: string;
 }
 
 interface ApiResponse {
-  created: number;
+  timestamp: number;
   data: ImageData[];
-}
+}*/
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const props = { dirs: [] };
@@ -41,7 +43,7 @@ export default function Home() {
   const [selectedSizeValue, setSelectedSizeValue] = useState<string | null>(null);
   const [selectedGenderValue, setSelectedGenderValue] = useState<string | null>(null);
   const [preselectornew, setPreselectorNew] = useState<string | null>("preselect");
-  const [result, setResult] = useState<ApiResponse | null>(null);
+  //const [result, setResult] = useState<ApiResponse | null>(null);
   const [urls, setUrls] = useState<string[]>([]);
   const [message, setMessage] = useState('');
   const [theme, setTheme] = useState('');
@@ -61,10 +63,15 @@ export default function Home() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
   const [refreshGallery, setRefreshGallery] = useState<boolean>(false);
+  const [refreshUserSessions, setRefreshUserSessions] = useState<boolean>(false);
+  const [selectedSession, setSelectedSession] = useState<number | null>(null);
+  //const [userSessions, setUserSessions] = useState<ApiResponse | null>(null);
 
-  const {data:session} = useSession();
-  console.log(session);
+  const { data: session } = useSession();
+  const userName = session?.user?.email?.split("@")[0];
   
+  console.log("refresh user session - initially: " +refreshUserSessions);
+
 
   const router = useRouter();
   //const template = router.query.template as string;
@@ -87,13 +94,17 @@ export default function Home() {
       if (!selectedFile) return;
       const formData = new FormData();
       formData.append("myImage", selectedFile);
-      const { data } = await axios.post("/api/image", formData);
-      console.log(data);
+      await axios.post("/api/image", formData);
+      //console.log(data);
     } catch (error: any) {
       console.log(error.response?.data);
     }
     setUploading(false);
   };
+
+  const handleSessionSelect = (timestamp: number) => {
+    setSelectedSession(timestamp);
+  }
 
   const handleUploadButton = async () => {
     //const router = useRouter();
@@ -134,15 +145,17 @@ export default function Home() {
 
   const handleOptionClick = (option: string) => {
     setSelectedLLMValue(option);
-    console.log(selectedLLMValue);
+    //console.log(selectedLLMValue);
     setIsDropdownOpen(false);
   };
 
   const handleSizeOptionClick = (option: string) => {
     setSizeValue(option);
-    console.log(sizeValue);
+    //console.log(sizeValue);
     setIsDropdownOpen2(false);
   }
+
+
 
   //handling selection of Size  
   const handleSizeonClick = (value: string) => {
@@ -164,13 +177,33 @@ export default function Home() {
   const handlePreorNewClick = (value: string) => {
     setPreselectorNew(value);
     setSelectedTemplate(null);
-    
+
   }
 
-  const handleUploadComplete = (success:boolean) => {
-    console.log("inside handleUploadComplete");
+  const handleUploadComplete = (success: boolean) => {
+    //console.log("inside handleUploadComplete");
     setRefreshGallery((prev) => !prev);
+
+  }
+
+  const handleSessionComplete = (success: boolean) => {
     
+    //console.log("inside session details refresh")
+    /*if(refreshUserSessions){
+      setRefreshUserSessions(true);
+      console.log("inside handleSessionComplete - refresh user session: " +refreshUserSessions);
+    } else {
+      setRefreshUserSessions(false);
+      console.log("inside handleSessionComplete - refresh user session: " +refreshUserSessions);
+    }*/
+    setRefreshUserSessions((prev) => !prev);
+    
+
+  }
+
+  const handlenavigate= () => {
+    router.push('/test');
+
   }
 
   //handling selected color 
@@ -200,7 +233,7 @@ export default function Home() {
     }
   };
 
-  
+
 
 
 
@@ -284,18 +317,18 @@ export default function Home() {
           {preselectornew === 'new' ?
             (
               <div>
-              
-                  <FileUpload onFileSelected={handleFileSelected} fileLocation={`templates/${sizeValue}`} onUploadComplete={handleUploadComplete} />
-                  
-                
-                
+
+                <FileUpload onFileSelected={handleFileSelected} fileLocation={`templates/${sizeValue}`} onUploadComplete={handleUploadComplete} />
+
+
+
                 <div className="space-padding"></div>
                 <hr className="sidebar-divider"></hr>
                 <div className="scrollable-container">
-                <ImageGallery2 onImageSelect={handleSelectedTemplate} fileLocation={`templates/${sizeValue}`} refresh={refreshGallery} />
+                  <ImageGallery2 onImageSelect={handleSelectedTemplate} fileLocation={`templates/${sizeValue}`} refresh={refreshGallery} />
                 </div>
               </div>
-              
+
             ) :
 
             (
@@ -304,12 +337,20 @@ export default function Home() {
               </div>
             )
           }
+          <div className="space-padding"></div>
+          <hr className="sidebar-divider"></hr>
+
+          <UserSessionsSummary userName={userName} llm="DALLE2" refresh={refreshUserSessions} onSessionSelect={handleSessionSelect}/>
+          {selectedSession !== null && (
+        <p>Selected Timestamp: {selectedSession}</p>
+          )}
+
         </div>
 
         <div className="chat-container">
-        {selectedTemplate ?
+          {selectedTemplate ?
             (
-              <ImagePlaceholder folderName= {preselectornew === 'new' ? `templates/${sizeValue}` : sizeValue} fileLocation={selectedTemplate} />
+              <ImagePlaceholder folderName={preselectornew === 'new' ? `templates/${sizeValue}` : sizeValue} fileLocation={selectedTemplate} />
             ) :
             (
               <div
@@ -327,10 +368,11 @@ export default function Home() {
             )}
           <div className="space-padding"></div>
           {selectedLLMValue === 'DALL·E 2' ?
-            (<DalleForm folderName={preselectornew === 'new' ? `templates/${sizeValue}` : sizeValue} template={selectedTemplate === null ? "" : selectedTemplate} />) : (<div className="form-container"> <div style={{ color: 'white', textAlign: 'center' }}>TBD</div>
+            (<DalleForm folderName={preselectornew === 'new' ? `templates/${sizeValue}` : sizeValue} template={selectedTemplate === null ? "" : selectedTemplate} onSessionComplete={handleSessionComplete} />) : (<div className="form-container"> <div style={{ color: 'white', textAlign: 'center' }}>TBD</div>
             </div>)}
+          {/*<button onClick={handlenavigate}>click</button>*/}
 
-          
+
 
         </div>
       </div>
