@@ -278,5 +278,132 @@
     "folderName": "1024x1024",
     "template": "DALL·E 2023-09-11 13.38.58.png",
     "result": "[{\"url\":\"https://oaidalleapiprodscus.blob.core.windows.net/private/org-j6FfmQXGihZhL5cXBSZYm5NH/user-sk7Qyc5sz8fWsHhvK42SuG0H/img-ruhFVbOQVd6DMLfyhWOHZZm9.png?st=2023-09-18T18%3A17%3A45Z&se=2023-09-18T20%3A17%3A45Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-09-18T06%3A19%3A03Z&ske=2023-09-19T06%3A19%3A03Z&sks=b&skv=2021-08-06&sig=z4ffyDl7MrCvzIen2BYSgZrv/SvlpaV%2BAj80DUh4Mpk%3D\"},{\"url\":\"https://oaidalleapiprodscus.blob.core.windows.net/private/org-j6FfmQXGihZhL5cXBSZYm5NH/user-sk7Qyc5sz8fWsHhvK42SuG0H/img-CJIGa4mYO87nLtBdWHSAF0Tv.png?st=2023-09-18T18%3A17%3A45Z&se=2023-09-18T20%3A17%3A45Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-09-18T06%3A19%3A03Z&ske=2023-09-19T06%3A19%3A03Z&sks=b&skv=2021-08-06&sig=JRnxqnFoWxnOsqo7ATUFI7tBg0StSLY/MT4kG%2BTMfmQ%3D\"},{\"url\":\"https://oaidalleapiprodscus.blob.core.windows.net/private/org-j6FfmQXGihZhL5cXBSZYm5NH/user-sk7Qyc5sz8fWsHhvK42SuG0H/img-DktIahGogIZ8Vlq0yyDQQjX8.png?st=2023-09-18T18%3A17%3A44Z&se=2023-09-18T20%3A17%3A44Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-09-18T06%3A19%3A03Z&ske=2023-09-19T06%3A19%3A03Z&sks=b&skv=2021-08-06&sig=O0sCTrmNx%2BhDa6gB/nVaT9WYXi0i2I9s9IbS%2BWMxVrM%3D\"},{\"url\":\"https://oaidalleapiprodscus.blob.core.windows.net/private/org-j6FfmQXGihZhL5cXBSZYm5NH/user-sk7Qyc5sz8fWsHhvK42SuG0H/img-xqFcmFG24UGYcITx8POhDyAs.png?st=2023-09-18T18%3A17%3A45Z&se=2023-09-18T20%3A17%3A45Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-09-18T06%3A19%3A03Z&ske=2023-09-19T06%3A19%3A03Z&sks=b&skv=2021-08-06&sig=dY4aNWaLugFevlCxyPB3ii%2BGkbf66HOZ4XwWy5wuyiY%3D\"}]"
+  },
+  {
+    "timestamp": 1695670409466,
+    "message": "picture of a couple sitting in a park drinking coffee",
+    "theme": "",
+    "audience": "20-30",
+    "gender": "Both",
+    "n": "4",
+    "contentType": "photo",
+    "color": "vibrant",
+    "folderName": "1024x1024",
+    "template": "DALL·E 2023-09-11 13.38.58.png"
+  },
+  {
+    "timestamp": 1695674568455,
+    "message": "a pink flamingo eating ice cream",
+    "theme": "",
+    "audience": "25-35",
+    "gender": "Female",
+    "n": "4",
+    "contentType": "graphic",
+    "color": "vibrant",
+    "folderName": "1024x1024",
+    "template": "DALL·E 2023-09-11 13.38.58.png"
+  },
+  {
+    "timestamp": 1695676731060,
+    "message": "a white siamese cat",
+    "theme": "",
+    "audience": "20-30",
+    "gender": "Both",
+    "size": "1024x1024",
+    "n": "4",
+    "contentType": "art",
+    "color": "cool"
+  },
+  {
+    "timestamp": 1695676914189,
+    "message": "",
+    "theme": "",
+    "audience": "",
+    "n": ""
+  },
+  {
+    "timestamp": 1695677125272,
+    "message": "",
+    "theme": "",
+    "audience": "",
+    "n": ""
+  },
+  {
+    "timestamp": 1695677139408,
+    "message": "",
+    "theme": "",
+    "audience": "",
+    "n": ""
+  },
+  {
+    "timestamp": 1695677181189,
+    "message": "a cat",
+    "theme": "",
+    "audience": "20-30",
+    "gender": "Both",
+    "size": "1024x1024",
+    "n": "4",
+    "contentType": "art",
+    "color": "pastels"
+  },
+  {
+    "timestamp": 1695677247092,
+    "message": "a cat",
+    "theme": "",
+    "audience": "25-35",
+    "gender": "Both",
+    "size": "1024x1024",
+    "n": "4",
+    "contentType": "graphic",
+    "color": "pastels"
+  },
+  {
+    "timestamp": 1695677328978,
+    "message": "a cat",
+    "theme": "",
+    "audience": "25-35",
+    "gender": "Both",
+    "n": "4",
+    "contentType": "graphic",
+    "color": "warm",
+    "folderName": "1024x1024",
+    "template": "DALL·E 2023-09-11 13.38.58.png"
+  },
+  {
+    "timestamp": 1695677386769,
+    "message": "a cat",
+    "theme": "",
+    "audience": "25-35",
+    "gender": "Both",
+    "size": "1024x1024",
+    "n": "4",
+    "contentType": "graphic",
+    "color": "warm"
+  },
+  {
+    "timestamp": 1695679134321,
+    "message": "",
+    "theme": "",
+    "audience": "",
+    "n": ""
+  },
+  {
+    "timestamp": 1695679248365,
+    "message": "a cat",
+    "theme": "",
+    "audience": "25-35",
+    "gender": "Both",
+    "n": "1",
+    "contentType": "graphic",
+    "color": "cool",
+    "folderName": "1024x1024",
+    "template": ""
+  },
+  {
+    "timestamp": 1695679525592,
+    "message": "",
+    "theme": "",
+    "audience": "",
+    "n": ""
   }
 ]

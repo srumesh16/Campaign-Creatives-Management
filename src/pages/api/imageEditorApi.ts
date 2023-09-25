@@ -42,6 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
             }
         );
+        console.log("RESPONSE!!!: ", response.data);
         res.status(200).json(response.data);
         
     } catch (error) {

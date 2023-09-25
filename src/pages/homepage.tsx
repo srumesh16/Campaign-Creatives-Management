@@ -10,7 +10,8 @@ import GeneratedImages2 from '../components/generatedImages2';
 import { GetServerSideProps, NextPage } from "next";
 import fs from "fs/promises";
 import path from "path";
-import DalleForm from '../components/DalleForm';
+import DalleFormEdit from '../components/DalleFormEdit';
+import DalleFormNew from '@/components/DalleFormNew';
 import { useSession } from 'next-auth/react';
 import UserSessionsSummary from '@/components/userSessionsSummary';
 import { time } from 'console';
@@ -43,6 +44,7 @@ export default function Home() {
   const [selectedSizeValue, setSelectedSizeValue] = useState<string | null>(null);
   const [selectedGenderValue, setSelectedGenderValue] = useState<string | null>(null);
   const [preselectornew, setPreselectorNew] = useState<string | null>("preselect");
+  const [graphicorinp, setGraphicorinp] = useState<string | null>("graphic");
   //const [result, setResult] = useState<ApiResponse | null>(null);
   const [urls, setUrls] = useState<string[]>([]);
   const [message, setMessage] = useState('');
@@ -180,6 +182,11 @@ export default function Home() {
 
   }
 
+  const handleGraphicorInp = (value:string) => {
+    setGraphicorinp(value);
+    setSelectedTemplate(null);
+  }
+
   const handleUploadComplete = (success: boolean) => {
     //console.log("inside handleUploadComplete");
     setRefreshGallery((prev) => !prev);
@@ -271,84 +278,105 @@ export default function Home() {
               )}
             </div>
           </div>
-
           <div className="llm-container">
-            <p className="sub-text2"> Size </p>
-            <div className="custom-dropdown">
-
-              <div className="selected-option" onClick={toggleDropdown2}>
-                <span className="option-text">{sizeValue}</span>
-                <span className={`arrow ${isDropdownOpen2 ? 'open' : ''}`}>&#9660;</span>
-              </div>
-              {isDropdownOpen2 && (
-                <div>
-                  {optionsSize.map((option) => (
-                    <div
-                      key={option}
-                      className={`dropdown-item ${sizeValue === option ? 'selected' : ''}`}
-                      onClick={() => handleSizeOptionClick(option)}>
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="space-padding"></div>
-          <hr className="sidebar-divider"></hr>
-
-          <div className="llm-container">
-            <p className="sub-text2">Template </p>
-            <div className="input-container">
+            <div className="input-container2">
               <div className="radiobuttonGroup">
-                <button className={preselectornew === 'preselect' ? "radiobuttonselected" : "radiobutton"} onClick={() => handlePreorNewClick('preselect')}>
-                  Preselect
+                <button className={graphicorinp === 'graphic' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleGraphicorInp('graphic')}>
+                  Graphic
                 </button>
-                <button className={preselectornew === 'new' ? "radiobuttonselected" : "radiobutton"} onClick={() => handlePreorNewClick('new')}>
-                  New
+                <button className={graphicorinp === 'inp' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleGraphicorInp('inp')}>
+                  In-Painting
                 </button>
               </div>
             </div>
 
           </div>
+
+          
           <div className="space-padding"></div>
           <hr className="sidebar-divider"></hr>
-
-          {preselectornew === 'new' ?
-            (
-              <div>
-
-                <FileUpload onFileSelected={handleFileSelected} fileLocation={`templates/${sizeValue}`} onUploadComplete={handleUploadComplete} />
-
-
-
-                <div className="space-padding"></div>
-                <hr className="sidebar-divider"></hr>
-                <div className="scrollable-container">
-                  <ImageGallery2 onImageSelect={handleSelectedTemplate} fileLocation={`templates/${sizeValue}`} refresh={refreshGallery} />
+          {graphicorinp === 'inp' ? (<div>
+            
+          
+            <div className="llm-container">
+              <p className="sub-text3"> Size </p>
+              <div className="custom-dropdown">
+  
+                <div className="selected-option" onClick={toggleDropdown2}>
+                  <span className="option-text">{sizeValue}</span>
+                  <span className={`arrow ${isDropdownOpen2 ? 'open' : ''}`}>&#9660;</span>
+                </div>
+                {isDropdownOpen2 && (
+                  <div>
+                    {optionsSize.map((option) => (
+                      <div
+                        key={option}
+                        className={`dropdown-item ${sizeValue === option ? 'selected' : ''}`}
+                        onClick={() => handleSizeOptionClick(option)}>
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+  
+            <div className="llm-container">
+              <p className="sub-text2">Template </p>
+              <div className="input-container">
+                <div className="radiobuttonGroup">
+                  <button className={preselectornew === 'preselect' ? "radiobuttonselected" : "radiobutton"} onClick={() => handlePreorNewClick('preselect')}>
+                    Preselect
+                  </button>
+                  <button className={preselectornew === 'new' ? "radiobuttonselected" : "radiobutton"} onClick={() => handlePreorNewClick('new')}>
+                    New
+                  </button>
                 </div>
               </div>
-
-            ) :
-
-            (
-              <div className="scrollable-container">
-                <ImageGallery2 onImageSelect={handleSelectedTemplate} fileLocation={sizeValue} refresh={refreshGallery} />
-              </div>
-            )
-          }
-          <div className="space-padding"></div>
-          <hr className="sidebar-divider"></hr>
-
-          <UserSessionsSummary userName={userName} llm="DALLE2" refresh={refreshUserSessions} onSessionSelect={handleSessionSelect}/>
-          {selectedSession !== null && (
-        <p>Selected Timestamp: {selectedSession}</p>
-          )}
-
+  
+            </div>
+            <div className="space-padding"></div>
+            <hr className="sidebar-divider"></hr>
+  
+            {preselectornew === 'new' ?
+              (
+                <div>
+  
+                  <FileUpload onFileSelected={handleFileSelected} fileLocation={`templates/${sizeValue}`} onUploadComplete={handleUploadComplete} />
+  
+  
+  
+                  <div className="space-padding"></div>
+                  <hr className="sidebar-divider"></hr>
+                  <div className="scrollable-container">
+                    <ImageGallery2 onImageSelect={handleSelectedTemplate} fileLocation={`templates/${sizeValue}`} refresh={refreshGallery} />
+                  </div>
+                </div>
+  
+              ) :
+  
+              (
+                <div className="scrollable-container">
+                  <ImageGallery2 onImageSelect={handleSelectedTemplate} fileLocation={sizeValue} refresh={refreshGallery} />
+                </div>
+              )
+            }
+            <div className="space-padding"></div>
+            <hr className="sidebar-divider"></hr>
+  
+            {/*<UserSessionsSummary userName={userName} llm="DALLE2" refresh={refreshUserSessions} onSessionSelect={handleSessionSelect}/>
+            {selectedSession !== null && (
+            <p>Selected Timestamp: {selectedSession}</p>
+            )}*/}
+          </div>): (<></>)}
+          
         </div>
 
         <div className="chat-container">
-          {selectedTemplate ?
+          {
+            graphicorinp === 'inp' ? (
+              <>
+                {selectedTemplate ?
             (
               <ImagePlaceholder folderName={preselectornew === 'new' ? `templates/${sizeValue}` : sizeValue} fileLocation={selectedTemplate} />
             ) :
@@ -363,13 +391,17 @@ export default function Home() {
                   justifyContent: 'center',
                   border: '1px solid black'
                 }}>
-                Choose a template to start
+                Choose a template to start<span className="required">*</span>
               </div>
             )}
+              </>
+            ) : null
+          }
           <div className="space-padding"></div>
-          {selectedLLMValue === 'DALL·E 2' ?
-            (<DalleForm folderName={preselectornew === 'new' ? `templates/${sizeValue}` : sizeValue} template={selectedTemplate === null ? "" : selectedTemplate} onSessionComplete={handleSessionComplete} />) : (<div className="form-container"> <div style={{ color: 'white', textAlign: 'center' }}>TBD</div>
-            </div>)}
+          {selectedLLMValue === 'DALL·E 2' ? ( 
+            graphicorinp === 'inp' ? 
+            (<DalleFormEdit folderName={preselectornew === 'new' ? `templates/${sizeValue}` : sizeValue} template={selectedTemplate === null ? "" : selectedTemplate} size={sizeValue} onSessionComplete={handleSessionComplete} />) : (
+            <DalleFormNew  onSessionComplete={handleSessionComplete}/>) ):<div> TBD </div>}
           {/*<button onClick={handlenavigate}>click</button>*/}
 
 

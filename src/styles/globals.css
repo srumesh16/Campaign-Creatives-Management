@@ -153,6 +153,13 @@ body {
   text-align: left;
   padding: 10px 10px 10px 20px;
 }
+.sub-text3{
+  font-style: italic;
+  font-weight: 400;
+  color: black;
+  text-align: left;
+  padding: 10px 30px 10px 20px;
+}
 
 .uploadContainer {
   display: flex;
@@ -228,7 +235,7 @@ body {
 .scrollable-container {
   position:sticky;
   width:100%;
-  height: 600px;
+  height: 700px;
   overflow-y: auto;
   padding-left: 20px;
   max-width: 450px;
@@ -1066,27 +1073,89 @@ a {
 }
 
 .form-container {
-  width: 800px;
+  width: 900px;
   border: 2px solid #f46f22;
-  padding: 30px 30px 30px 30px;
+  padding: 30px;
   border-radius: 3px;
+  display: flex;
+  height: auto;
+  flex-direction: row;
 }
+
+.label-section {
+  text-align: center;
+  writing-mode: vertical-lr;
+  transform: scale(-1);
+  color: black;
+  font-weight: bold;
+  width: 2%;
+}
+.form-contents {
+  width: 80%;
+  padding: 10px;
+}
+
 .form-container2 {
-  width: 800px;
+  width: 900px;
+  display: flex;
+  height: auto;
+  flex-direction: row;
   align-items: left;
+  
+}
+.error-container {
+  width: 900px;
+  height: auto;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  color: red;
+  text-align: center;
   
 }
 .form-row {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  flex-direction: row;
+  justify-content: flex-start; /* Adjusted to make everything left-aligned */
+  align-items: center; /* Vertically center items within the row */
+  margin-bottom: 10px;
+  padding: 5px;
 }
 
+
+.form-row label {
+  width:100px;
+  text-align: left;
+  font-weight: bold;
+  font-style: italic;
+  color: black;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.basic-input-field {
+  flex: 1;
+  max-width: 1000px; /* Adjust the width as needed */
+  padding: 5px;
+  border: 1px solid #ccc;
+  margin-left: 50px;
+}
+
+/* Style for large input fields */
+.large-input-field {
+  flex: 1;
+  max-width: 1000px; /* Adjust the width as needed */
+  padding: 5px;
+  border: 1px solid #ccc;
+  margin-left: 50px;
+  height: 150px;
+  white-space: normal;
+}
 .form-label{
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  padding-top: 10px;
+  font-style: italic;
   color: black;
+
 }
 
 .hiddendiv {
@@ -1107,16 +1176,20 @@ a {
   vertical-align: text-top;
 }
 
-.input-container {
-  display: flex;
-  width: 100%;
-  margin-bottom: 10px; 
-}
+
 .input-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px; /* Add some spacing between input and error message */
-  position: relative; /* Required for positioning the error message */
+  margin-bottom: 10px; 
+  position: relative; 
+  align-items: right;
+}
+.input-container2 {
+  display: flex;
+  flex-direction: column;
+  position: relative; 
+  align-items: center;
+  margin-left: 20px;
 }
 
 .form-largeinput {
@@ -1130,13 +1203,13 @@ a {
 }
 
 .form-largeinput.error {
-  border-color: red; /* Change border color to red when in error state */
+  border-color: red; 
 }
 
 .error-message {
-  color: red; /* Style the error message text color */
-  margin-top: 5px; /* Add some spacing between input and error message */
-  display: block; /* Ensure the error message appears as a block below the input */
+  color: red; 
+  margin-top: 5px; 
+  display: block; 
 }
 .space-padding{
   padding: 10px 10px 10px 10px;
@@ -1149,13 +1222,13 @@ a {
 .dropdown {
   background-color: white;
   border: 1px solid black;
-  padding: 10px; /* Adjusted to 10px on all sides */
+  padding: 10px; 
   width: 200px;
   border-radius: 3px;
   margin-bottom: 10px;
   position: absolute;
-  top: 10px; /* Adjust top position as needed */
-  right: 10px; /* Adjust right position as needed */
+  top: 10px; 
+  right: 10px; 
 }
 
 .dropdown-item{
@@ -1167,28 +1240,61 @@ a {
   background-color: #f46f22;
 }
 
-.radiobuttonGroup {  
-  display: flex;  
-  flex-direction: row;  
-  align-items: left;  
+.radiobuttonGroup {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 10px;
-  
 }
-.radiobutton {  
-  padding: 10px 20px;  
-  border: 1px solid black;  
-  border-radius: 5px;  
-  cursor: pointer;
-  background-color: white;
+.radiobuttonGroup2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-left: 50px;
 }
-.radiobuttonselected {  
-  background-color: #f46f22;;  
-  color: white;
-  padding: 10px 20px;
+.radiobuttonGroup3 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-left: 35px;
+}
+.radiobuttonGroup4 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-left: 75px;
+}
+
+.radiobutton {
+  flex: 0 0 auto; /* Prevent buttons from growing */
+  padding: 10px;
+  min-width: 100px; /* Set a minimum width for uniform width */
   border: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
+  background-color: white;
+  text-align: center;
+  
 }
+
+.radiobuttonselected {
+  background-color: #f46f22;
+  color: white;
+  padding: 10px;
+  min-width: 100px; /* Set a minimum width for uniform width */
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
 
 .temselection-container {
   width: 100%;
@@ -1313,7 +1419,7 @@ a {
 .gallery-item {
   flex: 0 0 calc(50% - 5px); 
   margin-right: 10px; 
-  margin-bottom: 10px; 
+  margin-bottom: 20px; 
   width: 100%; 
   max-width: calc(50% - 5px); 
   height: 400px;
@@ -1486,4 +1592,8 @@ input[type="password"] {
 
 .session-row:hover {
   background-color: #ff8c3e; ; 
+}
+.required {
+  color: red;
+  margin-left: 2px; /* Adjust the spacing between the label text and asterisk */
 }
