@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import GeneratedImages2 from './generatedImages2';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import { time } from 'console';
-import DropdownSeasonal from './DropdownSeasonal';
+import Loading from './loading';
+import { useRouter } from 'next/router';
+
 interface DalleFormProps {
   onSessionComplete: (success: boolean) => void;
 
@@ -38,6 +39,7 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
   const [result, setResult] = useState<ApiResponse | null>(null);
   const { data: session } = useSession();
   const userName = session?.user?.email as string;
+  const router = useRouter();
 
   const seasonalOptions = ['New Years', 'Valentines Day', 'Easter', 'July 4th', 'Labor day', 'Halloween', 'Thanksgiving', 'Chirstmas'];
   const [isSeasonalDDOpen, setIsSeasonalDDOpen] = useState(false);
@@ -80,19 +82,19 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
     setSelectedSeasonalValue(value);
     console.log(selectedSeasonalValue);
     setIsSeasonalDDOpen(!isSeasonalDDOpen);
-  }
+  };
 
   const handleRegionalClick = (value: string) => {
     setSelectedRegionalValue(value);
     console.log(selectedRegionalValue);
     setIsRegionalDDOpen(!isRegionalDDOpen);
-  }
+  };
 
   const handleOccasionClick = (value: string) => {
     setSelectedOccasionValue(value);
     console.log(selectedOccasionValue);
     setIsOccasionalDDOpen(!isOccasionalDDOpen);
-  }
+  };
   const handleColoronClick = (value: string) => {
     setColor(value);
     console.log(selectedColor);
@@ -143,35 +145,75 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
     if(message && noi && noi <= '10' && selectedSizeValue){*/
 
 
+    if(!ta || !selectedGenderValue || !message || !selectedSizeValue || !noi){
+      console.log(ta, selectedGenderValue, message, selectedSizeValue);
+      console.log("inside if");
+      setMessageError("Please fill all the required fields");
+    }
+    else{
+      console.log("inside else");
+      setMessageError('');
     setLoading(1);
-    setMessageError('');
+    const formData = {
+      targetAudience: ta,
+      gender: selectedGenderValue,
+      seasonal: selectedSeasonalValue,
+      regional: selectedRegionalValue,
+      occasion: selectedOccasionValue,
+      description: message,
+      contentType: selectedContentType,
+      color: selectedColor,
+      size: selectedSizeValue,
+      imageCount: noi,
+      loading: loading
+    };
+
+    
+    router.push({
+      pathname: '/GenerateImg',
+      query: formData
+    });
+  }
+    /*setMessageError('');
     setSizeError('');
     setNOIError('');
     try {
 
+      let dalle_prompt = "A " + selectedColor + " toned picture of " + message + 
+      ". This picture should be targetted to an audience with an age range between " + ta +
+       " and toward  " + selectedGenderValue + 
+       " gender(s). The picture's theme is " + selectedSeasonalValue + 
+       " applicable to audience living in " + selectedRegionalValue + " regions." +
+       "The Content Type is " + selectedContentType;*/
+       /*"Generate an image of " + message + " which is suitable for a target audience aged " +  ta +
+      ", with a possibility of " + (selectedGenderValue === "Both" ? "both male and female" : selectedGenderValue) + " viewers." +
+      (selectedSeasonalValue && selectedRegionalValue ? ("The image should be seasonal, capturing the essence of " + selectedSeasonalValue + ", and have a regional focus on " + selectedRegionalValue)  : "") +
+      (selectedSeasonalValue && !selectedRegionalValue ? ("The image should be seasonal, capturing the essence of " + selectedSeasonalValue): "") +
+      (selectedRegionalValue && !selectedSeasonalValue ? ("The image should have a regional focus on " + selectedRegionalValue): "") +
+      (selectedOccasionValue ? (".It should depict an occasion, specifically a " + selectedOccasionValue) : ("")) +
+      (selectedContentType ? ".The content type of should be " + selectedContentType : "") +
+      (selectedColor ? ".The color of the image should be " + selectedColor : "") ;*/
 
-      const response = await axios.get('http://localhost:3000/api/imageGeneratorApioai', {
+      //console.log(dalle_prompt);
+
+      
+     /* const response = await axios.get('http://localhost:3000/api/imageGeneratorApioai', {
         params: {
           size: selectedSizeValue,
           n: noi,
-          prompt: "A " + selectedColor + " toned picture of " + message +
-            ". This picture should be targetted to an audience with an age range between " + ta +
-            " and toward  " + selectedGenderValue +
-            " gender(s). The picture's theme is " + selectedSeasonalValue +
-            " applicable to audience living in " + selectedRegionalValue + " regions." +
-            "The Content Type is " + selectedContentType,
+          prompt: dalle_prompt,
         },
       });
       setResult(response.data);
 
       setLoading(2);
     } catch (error) {
-      console.error('Error making Edit Image API call:', error);
+      console.error('Error making Generate Image API call:', error);
       setLoading(3);
       //onSessionComplete(false);
-    }
+    }*/
 
-    try {
+    /*try {
 
       await axios.get('http://localhost:3000/api/storeUserSessions', {
         params: {
@@ -193,7 +235,7 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
       console.log("Error making store user session call", error);
       onSessionComplete(false);
     }
-    // }
+    // }*/
   };
 
   return (
@@ -204,12 +246,12 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
         </div>
         <div className="form-contents">
           <div className="form-row">
-            <label htmlFor="targetAudience">Target Audience</label>
+            <label htmlFor="targetAudience">Target Audience<span className="required">*</span></label>
             <input className="basic-input-field" type="text" id="ta" placeholder="20-30 or 35-65" value={ta} onChange={handleInputChange}></input>
           </div>
 
           <div className="form-row">
-            <label htmlFor="gender">Gender</label>
+            <label htmlFor="gender">Gender<span className="required">*</span></label>
             <div className="radiobuttonGroup2">
               <button className={selectedGenderValue === 'Male' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleGenderClick('Male')}>
                 Male
@@ -367,9 +409,6 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
           <div className="form-row">
             <label htmlFor="contentType">Content Type</label>
             <div className="radiobuttonGroup2">
-              <button className={selectedContentType === 'none' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleContentTypeonClick('none')}>
-                None
-              </button>
               <button className={selectedContentType === 'photo' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleContentTypeonClick('photo')}>
                 Photo
               </button>
@@ -458,14 +497,24 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
           </button>
         </div>
       </div>
+      <div className="error-container">
+      {messageError ? (<p>{messageError}</p>):null}
+      </div>
 
       <div>
 
-        <div className="form-container">
+      {/*}  <div className="form-container">
           {loading === 0 ? (
             <h2 style={{ color: 'black', textAlign: 'center' }}>Generated images will appear here...</h2>
           ) : loading === 1 ? (
-            <h2 style={{ color: 'black', textAlign: 'center' }}>Generating images for "A {selectedColor} toned picture of {message}. The Content Type is {selectedContentType}. This picture should be targetted to an audience with an age range between {ta} and toward {selectedGenderValue} genders. The theme of this picture is {theme}"</h2>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%', 
+            }}>
+            <Loading />
+            </div>
           ) : loading === 2 && result !== null ? (
             <GeneratedImages2 data={result.data} />
           ) : (
@@ -473,7 +522,7 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
           )
           }
 
-        </div>
+        </div>*/}
       </div>
 
 

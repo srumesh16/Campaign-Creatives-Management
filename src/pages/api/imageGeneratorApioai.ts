@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const n = parseInt(req.query.n as string, 10);
         const size = req.query.size as string;
         const response = await openai.images.generate({ prompt: prompt, n:n, size:"1024x1024" });
-        console.log("RESPONSE!!!!:" , response);
+        //console.log("RESPONSE!!!!:" , response);
         res.status(200).json(response);
     } catch (error) {
         console.error('Error reading images directory:', error);

@@ -2,7 +2,7 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/_app": "pages/_app.js",
-  "/homepage": "pages/homepage.js",
   "/login": "pages/login.js",
-  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js"
+  "/homepage": "pages/homepage.js",
+  "/GenerateImg": "pages/GenerateImg.js"
 }
