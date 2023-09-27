@@ -276,7 +276,27 @@ export default function Home() {
                   ))}
                 </div>
               )}
-            </div>
+                  </div>
+            {/*<div className="space-padding3"></div>
+              <div className="dropdown-containernew2">
+              <div className={`dropdownnew ${isDropdownOpen ? 'open' : ''}`} onClick={toggleDropdown1}>
+                <span>{selectedLLMValue || 'Select an option'}</span>
+                <span className="dropdown-arrow">&#9660;</span>
+              </div>
+              {isDropdownOpen && (
+                <ul className="dropdown-menu-new">
+                  {options.map((option, index) => (
+                    <li
+                      key={index}
+                      className="dropdown-item-new"
+                      onClick={() => handleOptionClick(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+                  </div>*/}
           </div>
           <div className="llm-container">
             <div className="input-container2">
@@ -410,4 +430,4 @@ export default function Home() {
       </div>
     </main>
   )
-}
+} 

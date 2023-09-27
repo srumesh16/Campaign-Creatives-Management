@@ -42,6 +42,29 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
   const { data: session } = useSession();
   const userName = session?.user?.email as string;
 
+  const seasonalOptions = ['New Years', 'Valentines Day', 'Easter', 'July 4th', 'Labor day', 'Halloween', 'Thanksgiving', 'Chirstmas'];
+  const [isSeasonalDDOpen, setIsSeasonalDDOpen] = useState(false);
+  const toggleSeasonalDD = () => {
+    setIsSeasonalDDOpen(!isSeasonalDDOpen);
+  };
+
+  const RegionalOptions = ['North America', 'South America', 'Europe', 'Asia', 'Africa', 'Australia'];
+  const [isRegionalDDOpen, setIsRegionalDDOpen] = useState(false);
+  const toggleRegionalDD = () => {
+    setIsRegionalDDOpen(!isRegionalDDOpen);
+  };
+
+  const OccasionalOptions = ['Breakfast', 'Lunch', 'Dinner', 'Office Party', 'Birthday Party'];
+  const [isOccasionalDDOpen, setIsOccasionalDDOpen] =  useState(false);
+  const toggleOccasionalDD = () => {
+    setIsOccasionalDDOpen(!isOccasionalDDOpen);
+  };
+
+  const ColorOptions = ['None', 'Black & White', 'Muted', 'Warm', 'Cool', 'Vibrant', 'Pastels'];
+  const [isColorDDOpen, setIsColorDDOpen] = useState(false);
+  const toggleColorDD = () => {
+    setIsColorDDOpen(!isColorDDOpen);
+  };
 
   // handling selection of Size
   const handleSizeonClick = (value: string) => {
@@ -58,17 +81,25 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
 
   const handleSeasonalClick = (value: string) => {
     setSelectedSeasonalValue(value);
+    console.log(selectedSeasonalValue);
+    setIsSeasonalDDOpen(!isSeasonalDDOpen)
   }
 
   const handleRegionalClick = (value: string) => {
     setSelectedRegionalValue(value);
+    console.log(selectedRegionalValue);
+    setIsRegionalDDOpen(!isRegionalDDOpen);
   }
 
   const handleOccasionClick = (value: string) => {
     setSelectedOccasionValue(value);
+    console.log(selectedOccasionValue);
+    setIsOccasionalDDOpen(!isOccasionalDDOpen);
   }
   const handleColoronClick = (value: string) => {
     setColor(value);
+    console.log(selectedColor);
+    setIsColorDDOpen(!isColorDDOpen);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -213,7 +244,26 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
         <div className="form-contents">
           <div className="form-row">
             <label htmlFor="seasonal">Seasonal</label>
-            <div className="radiobuttonGroup2">
+            <div className="dropdown-containernew">
+              <div className={`dropdownnew ${isSeasonalDDOpen ? 'open' : ''}`} onClick={toggleSeasonalDD}>
+                <span>{selectedSeasonalValue || 'Select an option'}</span>
+                <span className="dropdown-arrow">&#9660;</span>
+              </div>
+              {isSeasonalDDOpen && (
+                <ul className="dropdown-menu-new">
+                  {seasonalOptions.map((option, index) => (
+                    <li
+                      key={index}
+                      className="dropdown-item-new"
+                      onClick={() => handleSeasonalClick(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            {/*<div className="radiobuttonGroup2">
 
               <button className={selectedSeasonalValue === 'new years' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('new years')}>
                 New Years
@@ -239,12 +289,31 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
               <button className={selectedSeasonalValue === 'christmas' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('christmas')}>
                 Christmas
               </button>
-            </div>
+  </div>*/}
           </div>
 
           <div className="form-row">
             <label htmlFor="seasonal">Regional</label>
-            <div className="radiobuttonGroup2">
+            <div className="dropdown-containernew">
+              <div className={`dropdownnew ${isRegionalDDOpen ? 'open' : ''}`} onClick={toggleRegionalDD}>
+                <span>{selectedRegionalValue || 'Select an option'}</span>
+                <span className="dropdown-arrow">&#9660;</span>
+              </div>
+              {isRegionalDDOpen && (
+                <ul className="dropdown-menu-new">
+                  {RegionalOptions.map((option, index) => (
+                    <li
+                      key={index}
+                      className="dropdown-item-new"
+                      onClick={() => handleRegionalClick(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            {/*<div className="radiobuttonGroup2">
 
               <button className={selectedRegionalValue === 'north america' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleRegionalClick('north america')}>
                 North America
@@ -264,12 +333,31 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
               <button className={selectedRegionalValue === 'australia' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleRegionalClick('australia')}>
                 Australia
               </button>
-            </div>
+</div>*/}
           </div>
 
           <div className="form-row">
             <label htmlFor="seasonal">Occasion (Restaurants)</label>
-            <div className="radiobuttonGroup3">
+            <div className="dropdown-containernew">
+              <div className={`dropdownnew ${isOccasionalDDOpen ? 'open' : ''}`} onClick={toggleOccasionalDD}>
+                <span>{selectedOccasionValue || 'Select an option'}</span>
+                <span className="dropdown-arrow">&#9660;</span>
+              </div>
+              {isOccasionalDDOpen && (
+                <ul className="dropdown-menu-new">
+                  {OccasionalOptions.map((option, index) => (
+                    <li
+                      key={index}
+                      className="dropdown-item-new"
+                      onClick={() => handleOccasionClick(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            {/*<div className="radiobuttonGroup3">
 
               <button className={selectedOccasionValue === 'north america' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleOccasionClick('north america')}>
                 Breakfast
@@ -287,7 +375,7 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
                 Birthday Party
               </button>
 
-            </div>
+</div>*/}
           </div>
         </div>
       </div>
@@ -333,7 +421,27 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
           </div>
           <div className="form-row">
             <label htmlFor="color">Color</label>
-            <div className="radiobuttonGroup4">
+            <div className="space-padding3"></div>
+              <div className="dropdown-containernew">
+              <div className={`dropdownnew ${isColorDDOpen ? 'open' : ''}`} onClick={toggleColorDD}>
+                <span>{selectedColor || 'Select an option'}</span>
+                <span className="dropdown-arrow">&#9660;</span>
+              </div>
+              {isColorDDOpen && (
+                <ul className="dropdown-menu-new">
+                  {ColorOptions.map((option, index) => (
+                    <li
+                      key={index}
+                      className="dropdown-item-new"
+                      onClick={() => handleColoronClick(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            {/*<div className="radiobuttonGroup4">
             <button className={selectedColor === 'none' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('none')}>
                   None
                 </button>
@@ -355,7 +463,7 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
                 <button className={selectedColor === 'pastels' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('pastels')}>
                   Pastels
                 </button>
-            </div>
+</div>*/}
           </div>
           <div className="form-row">
             <label htmlFor="count">Image Count<span className="required">*</span></label>

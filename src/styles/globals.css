@@ -1218,7 +1218,9 @@ a {
 .space-padding2{
   padding: 10px 24px 10px 10px;
 }
-
+.space-padding3{
+  padding: 0px 30px 0px 0px;
+}
 .dropdown {
   background-color: white;
   border: 1px solid black;
@@ -1447,6 +1449,16 @@ a {
   position: relative;
   display: inline-block;
   margin-left: 20px;
+  z-index:1;
+  
+}
+
+.custom-dropdown2{
+  position: relative;
+  display: inline-block;
+  margin-left: 40px;
+  width: 200px;
+  z-index:1;
 }
 
 .selected-option {
@@ -1466,6 +1478,16 @@ a {
   border-radius: 3px;
   border-top: none;
   width: 100%;
+  z-index: 2;
+  top: 100%;
+  left:0;
+}
+.custom-dropdown.active .dropdown-options {
+  display: block;
+}
+
+.custom-dropdown2.active .dropdown-options {
+  display: block;
 }
 
 .option {
@@ -1597,3 +1619,122 @@ input[type="password"] {
   color: red;
   margin-left: 2px; /* Adjust the spacing between the label text and asterisk */
 }
+/* Dropdown.module.css */
+
+.dropdown-containernew {
+  position: relative;
+  display: inline-block;
+  margin-left: 40px;
+}
+
+
+.dropdownnew {
+  display: inline-block;
+  padding: 10px;
+  background-color: white;
+  border: 2px solid ccc ;
+  border-radius: 3px;
+  color: black;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s;
+  width: 500px;
+}
+
+.dropdownnew:hover {
+  background-color: #ea8043;
+  color: white;
+}
+
+.dropdownnew.open {
+  border-radius: 5px 5px 0 0;
+  border-bottom: none;
+}
+
+.dropdown-menu-new {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 2px solid #ea8043;
+  border-top: none;
+  background-color: white;
+  display: block;
+  z-index: 1;
+  width: 100%;
+}
+
+.dropdown-item-new{
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdown-item-new:hover {
+  background-color: #f46f22;
+  color: white;
+}
+.dropdown-arrow {
+  position: absolute;
+  top: 80%;
+  right: 10px;
+  transform: translateY(-100%);
+}
+.dropdown-containernew {
+  position: relative;
+  display: inline-block;
+  margin-left: 40px;
+}
+
+
+.dropdownnew2 {
+  display: inline-block;
+  padding: 10px;
+  background-color: white;
+  border: 2px solid ccc ;
+  border-radius: 3px;
+  color: black;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s;
+  width: 10px;
+}
+
+.dropdownnew2:hover {
+  background-color: #ea8043;
+  color: white;
+}
+
+.dropdownnew2.open {
+  border-radius: 5px 5px 0 0;
+  border-bottom: none;
+}
+
+.dropdown-menu-new {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 2px solid #ea8043;
+  border-top: none;
+  background-color: white;
+  display: block;
+  z-index: 1;
+  width: 100%;
+}
+
+.dropdown-item-new{
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdown-item-new:hover {
+  background-color: #f46f22;
+  color: white;
+}
+

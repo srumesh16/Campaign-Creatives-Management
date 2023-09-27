@@ -4,7 +4,7 @@ import GeneratedImages2 from './generatedImages2';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { time } from 'console';
-
+import DropdownSeasonal from './DropdownSeasonal';
 interface DalleFormProps {
   onSessionComplete: (success: boolean) => void;
 
@@ -39,6 +39,29 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
   const { data: session } = useSession();
   const userName = session?.user?.email as string;
 
+  const seasonalOptions = ['New Years', 'Valentines Day', 'Easter', 'July 4th', 'Labor day', 'Halloween', 'Thanksgiving', 'Chirstmas'];
+  const [isSeasonalDDOpen, setIsSeasonalDDOpen] = useState(false);
+  const toggleSeasonalDD = () => {
+    setIsSeasonalDDOpen(!isSeasonalDDOpen);
+  };
+
+  const RegionalOptions = ['North America', 'South America', 'Europe', 'Asia', 'Africa', 'Australia'];
+  const [isRegionalDDOpen, setIsRegionalDDOpen] = useState(false);
+  const toggleRegionalDD = () => {
+    setIsRegionalDDOpen(!isRegionalDDOpen);
+  };
+
+  const OccasionalOptions = ['Breakfast', 'Lunch', 'Dinner', 'Office Party', 'Birthday Party'];
+  const [isOccasionalDDOpen, setIsOccasionalDDOpen] =  useState(false);
+  const toggleOccasionalDD = () => {
+    setIsOccasionalDDOpen(!isOccasionalDDOpen);
+  };
+
+  const ColorOptions = ['None', 'Black & White', 'Muted', 'Warm', 'Cool', 'Vibrant', 'Pastels'];
+  const [isColorDDOpen, setIsColorDDOpen] = useState(false);
+  const toggleColorDD = () => {
+    setIsColorDDOpen(!isColorDDOpen);
+  };
 
   // handling selection of Size
   const handleSizeonClick = (value: string) => {
@@ -55,17 +78,25 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
 
   const handleSeasonalClick = (value: string) => {
     setSelectedSeasonalValue(value);
+    console.log(selectedSeasonalValue);
+    setIsSeasonalDDOpen(!isSeasonalDDOpen);
   }
 
   const handleRegionalClick = (value: string) => {
     setSelectedRegionalValue(value);
+    console.log(selectedRegionalValue);
+    setIsRegionalDDOpen(!isRegionalDDOpen);
   }
 
   const handleOccasionClick = (value: string) => {
     setSelectedOccasionValue(value);
+    console.log(selectedOccasionValue);
+    setIsOccasionalDDOpen(!isOccasionalDDOpen);
   }
   const handleColoronClick = (value: string) => {
     setColor(value);
+    console.log(selectedColor);
+    setIsColorDDOpen(!isColorDDOpen);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -123,12 +154,12 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
         params: {
           size: selectedSizeValue,
           n: noi,
-          prompt: "A " + selectedColor + " toned picture of " + message + 
-          ". This picture should be targetted to an audience with an age range between " + ta +
-           " and toward  " + selectedGenderValue + 
-           " gender(s). The picture's theme is " + selectedSeasonalValue + 
-           " applicable to audience living in " + selectedRegionalValue + " regions." +
-           "The Content Type is " + selectedContentType,
+          prompt: "A " + selectedColor + " toned picture of " + message +
+            ". This picture should be targetted to an audience with an age range between " + ta +
+            " and toward  " + selectedGenderValue +
+            " gender(s). The picture's theme is " + selectedSeasonalValue +
+            " applicable to audience living in " + selectedRegionalValue + " regions." +
+            "The Content Type is " + selectedContentType,
         },
       });
       setResult(response.data);
@@ -201,38 +232,50 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
         <div className="form-contents">
           <div className="form-row">
             <label htmlFor="seasonal">Seasonal</label>
-            <div className="radiobuttonGroup2">
-
-              <button className={selectedSeasonalValue === 'new years' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('new years')}>
-                New Years
-              </button>
-              <button className={selectedSeasonalValue === 'valentines day' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('valentines day')}>
-                Valentines Day
-              </button>
-              <button className={selectedSeasonalValue === 'easter' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('easter')}>
-                Easter
-              </button>
-              <button className={selectedSeasonalValue === 'July 4th' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('July 4th')}>
-                July 4th
-              </button>
-              <button className={selectedSeasonalValue === 'labor day' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('labor day')}>
-                Labor Day
-              </button>
-              <button className={selectedSeasonalValue === 'halloween' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('halloween')}>
-                Halloween
-              </button>
-              <button className={selectedSeasonalValue === 'thanksgiving' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('thanksgiving')}>
-                Thanksgiving
-              </button>
-              <button className={selectedSeasonalValue === 'christmas' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSeasonalClick('christmas')}>
-                Christmas
-              </button>
+            <div className="dropdown-containernew">
+              <div className={`dropdownnew ${isSeasonalDDOpen ? 'open' : ''}`} onClick={toggleSeasonalDD}>
+                <span>{selectedSeasonalValue || 'Select an option'}</span>
+                <span className="dropdown-arrow">&#9660;</span>
+              </div>
+              {isSeasonalDDOpen && (
+                <ul className="dropdown-menu-new">
+                  {seasonalOptions.map((option, index) => (
+                    <li
+                      key={index}
+                      className="dropdown-item-new"
+                      onClick={() => handleSeasonalClick(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
+
           </div>
 
           <div className="form-row">
             <label htmlFor="seasonal">Regional</label>
-            <div className="radiobuttonGroup2">
+            <div className="dropdown-containernew">
+              <div className={`dropdownnew ${isRegionalDDOpen ? 'open' : ''}`} onClick={toggleRegionalDD}>
+                <span>{selectedRegionalValue || 'Select an option'}</span>
+                <span className="dropdown-arrow">&#9660;</span>
+              </div>
+              {isRegionalDDOpen && (
+                <ul className="dropdown-menu-new">
+                  {RegionalOptions.map((option, index) => (
+                    <li
+                      key={index}
+                      className="dropdown-item-new"
+                      onClick={() => handleRegionalClick(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            {/*<div className="radiobuttonGroup2">
 
               <button className={selectedRegionalValue === 'north america' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleRegionalClick('north america')}>
                 North America
@@ -252,12 +295,31 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
               <button className={selectedRegionalValue === 'australia' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleRegionalClick('australia')}>
                 Australia
               </button>
-            </div>
+                  </div>*/}
           </div>
 
           <div className="form-row">
             <label htmlFor="seasonal">Occasion (Restaurants)</label>
-            <div className="radiobuttonGroup3">
+            <div className="dropdown-containernew">
+              <div className={`dropdownnew ${isOccasionalDDOpen ? 'open' : ''}`} onClick={toggleOccasionalDD}>
+                <span>{selectedOccasionValue || 'Select an option'}</span>
+                <span className="dropdown-arrow">&#9660;</span>
+              </div>
+              {isOccasionalDDOpen && (
+                <ul className="dropdown-menu-new">
+                  {OccasionalOptions.map((option, index) => (
+                    <li
+                      key={index}
+                      className="dropdown-item-new"
+                      onClick={() => handleOccasionClick(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+           {/*} <div className="radiobuttonGroup3">
 
               <button className={selectedOccasionValue === 'north america' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleOccasionClick('north america')}>
                 Breakfast
@@ -273,9 +335,10 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
               </button>
               <button className={selectedOccasionValue === 'africa' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleOccasionClick('africa')}>
                 Birthday Party
-              </button>
+                </button>
 
-            </div>
+
+                </div>*/}
           </div>
         </div>
       </div>
@@ -299,21 +362,8 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
           SPECIFICATION
         </div>
         <div className="form-contents">
-        <div className="form-row">
-            <label htmlFor="size">Size<span className="required">*</span></label>
-            <div className="radiobuttonGroup2">
-              <button className={selectedSizeValue === '256x256' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSizeonClick('256x256')}>
-                256x256
-              </button>
-              <button className={selectedSizeValue === '512x512' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSizeonClick('512x512')}>
-                512x512
-              </button>
-              <button className={selectedSizeValue === '1024x1024' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSizeonClick('1024x1024')}>
-                1024x1024
-              </button>
-            </div>
-          </div>
           
+
           <div className="form-row">
             <label htmlFor="contentType">Content Type</label>
             <div className="radiobuttonGroup2">
@@ -335,28 +385,62 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
           </div>
           <div className="form-row">
             <label htmlFor="color">Color</label>
-            <div className="radiobuttonGroup4">
-            <button className={selectedColor === 'none' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('none')}>
-                  None
-                </button>
-                <button className={selectedColor === 'black & white' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('black & white')}>
-                  B&W
-                </button>
-                <button className={selectedColor === 'muted' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('muted')}>
-                  Muted
-                </button>
-                <button className={selectedColor === 'warm' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('warm')}>
-                  Warm
-                </button>
-                <button className={selectedColor === 'cool' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('cool')}>
-                  Cool
-                </button>
-                <button className={selectedColor === 'vibrant' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('vibrant')}>
-                  Vibrant
-                </button>
-                <button className={selectedColor === 'pastels' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('pastels')}>
-                  Pastels
-                </button>
+            {/*<div className="radiobuttonGroup4">
+              <button className={selectedColor === 'none' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('none')}>
+                None
+              </button>
+              <button className={selectedColor === 'black & white' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('black & white')}>
+                B&W
+              </button>
+              <button className={selectedColor === 'muted' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('muted')}>
+                Muted
+              </button>
+              <button className={selectedColor === 'warm' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('warm')}>
+                Warm
+              </button>
+              <button className={selectedColor === 'cool' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('cool')}>
+                Cool
+              </button>
+              <button className={selectedColor === 'vibrant' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('vibrant')}>
+                Vibrant
+              </button>
+              <button className={selectedColor === 'pastels' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleColoronClick('pastels')}>
+                Pastels
+              </button>
+              </div>*/}
+              <div className="space-padding3"></div>
+              <div className="dropdown-containernew">
+              <div className={`dropdownnew ${isColorDDOpen ? 'open' : ''}`} onClick={toggleColorDD}>
+                <span>{selectedColor || 'Select an option'}</span>
+                <span className="dropdown-arrow">&#9660;</span>
+              </div>
+              {isColorDDOpen && (
+                <ul className="dropdown-menu-new">
+                  {ColorOptions.map((option, index) => (
+                    <li
+                      key={index}
+                      className="dropdown-item-new"
+                      onClick={() => handleColoronClick(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+          <div className="form-row">
+            <label htmlFor="size">Size<span className="required">*</span></label>
+            <div className="radiobuttonGroup2">
+              <button className={selectedSizeValue === '256x256' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSizeonClick('256x256')}>
+                256x256
+              </button>
+              <button className={selectedSizeValue === '512x512' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSizeonClick('512x512')}>
+                512x512
+              </button>
+              <button className={selectedSizeValue === '1024x1024' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleSizeonClick('1024x1024')}>
+                1024x1024
+              </button>
             </div>
           </div>
           <div className="form-row">
@@ -366,7 +450,7 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
         </div>
       </div>
 
-      
+
       <div className="form-container2">
         <div className="uploadContainer2">
           <button onClick={handleButtonClick} className="button-align-right work-bench-button">
@@ -374,27 +458,27 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
           </button>
         </div>
       </div>
-    
-        <div>
 
-          <div className="form-container">
-            {loading === 0 ? (
-              <h2 style={{ color: 'black', textAlign: 'center' }}>Generated images will appear here...</h2>
-            ) : loading === 1 ? (
-              <h2 style={{ color: 'black', textAlign: 'center' }}>Generating images for "A {selectedColor} toned picture of {message}. The Content Type is {selectedContentType}. This picture should be targetted to an audience with an age range between {ta} and toward {selectedGenderValue} genders. The theme of this picture is {theme}"</h2>
-            ) : loading === 2 && result !== null ? (
-              <GeneratedImages2 data={result.data} />
-            ) : (
-              <h2 style={{ color: 'black' }}>Error while calling API</h2>
-            )
-            }
+      <div>
 
-          </div>
+        <div className="form-container">
+          {loading === 0 ? (
+            <h2 style={{ color: 'black', textAlign: 'center' }}>Generated images will appear here...</h2>
+          ) : loading === 1 ? (
+            <h2 style={{ color: 'black', textAlign: 'center' }}>Generating images for "A {selectedColor} toned picture of {message}. The Content Type is {selectedContentType}. This picture should be targetted to an audience with an age range between {ta} and toward {selectedGenderValue} genders. The theme of this picture is {theme}"</h2>
+          ) : loading === 2 && result !== null ? (
+            <GeneratedImages2 data={result.data} />
+          ) : (
+            <h2 style={{ color: 'black' }}>Error while calling API</h2>
+          )
+          }
+
         </div>
-
-
       </div>
-    
+
+
+    </div>
+
 
 
   );
