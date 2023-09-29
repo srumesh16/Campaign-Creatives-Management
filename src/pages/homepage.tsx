@@ -246,7 +246,7 @@ export default function Home() {
 
   return (
     <main>
-      <Header />
+      <Header selectedImageCount={0} selectedImages = {[]}/>
       <div className="app-container">
 
         <div className="sidebar-container">

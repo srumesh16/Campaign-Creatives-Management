@@ -1,8 +1,8 @@
 {
-  "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
   "/_app": "pages/_app.js",
-  "/login": "pages/login.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
   "/homepage": "pages/homepage.js",
-  "/GenerateImg": "pages/GenerateImg.js"
+  "/GenerateImg": "pages/GenerateImg.js",
+  "/shoppingCart": "pages/shoppingCart.js"
 }

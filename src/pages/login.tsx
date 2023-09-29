@@ -7,6 +7,7 @@ const Login = () => {
 
     async function handleGoogleSignIn() {
         signIn('google',{ callbackUrl: "http://localhost:3000"});
+
     };
 
 

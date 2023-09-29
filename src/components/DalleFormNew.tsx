@@ -54,7 +54,7 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
   };
 
   const OccasionalOptions = ['Breakfast', 'Lunch', 'Dinner', 'Office Party', 'Birthday Party'];
-  const [isOccasionalDDOpen, setIsOccasionalDDOpen] =  useState(false);
+  const [isOccasionalDDOpen, setIsOccasionalDDOpen] = useState(false);
   const toggleOccasionalDD = () => {
     setIsOccasionalDDOpen(!isOccasionalDDOpen);
   };
@@ -124,7 +124,7 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
   };
 
   //Dalle 2 Edit Images API Call
-  const handleButtonClick = async () => {
+  const handleButtonClick = () => {
 
     /*if (!message) {
       console.log("inside message: "  + message);
@@ -145,35 +145,64 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
     if(message && noi && noi <= '10' && selectedSizeValue){*/
 
 
-    if(!ta || !selectedGenderValue || !message || !selectedSizeValue || !noi){
+    if (!ta || !selectedGenderValue || !message || !selectedSizeValue || !noi) {
       console.log(ta, selectedGenderValue, message, selectedSizeValue);
       console.log("inside if");
       setMessageError("Please fill all the required fields");
     }
-    else{
+    else {
       console.log("inside else");
       setMessageError('');
-    setLoading(1);
-    const formData = {
-      targetAudience: ta,
-      gender: selectedGenderValue,
-      seasonal: selectedSeasonalValue,
-      regional: selectedRegionalValue,
-      occasion: selectedOccasionValue,
-      description: message,
-      contentType: selectedContentType,
-      color: selectedColor,
-      size: selectedSizeValue,
-      imageCount: noi,
-      loading: loading
-    };
+      setLoading(1);
+     /* try {
 
-    
-    router.push({
-      pathname: '/GenerateImg',
-      query: formData
-    });
-  }
+        let dalle_prompt = "A " + selectedColor + " toned picture of " + message + 
+        ". This picture should be targetted to an audience with an age range between " + ta +
+         " and toward  " + selectedGenderValue + 
+         " gender(s). The picture's theme is " + selectedSeasonalValue + 
+         " applicable to audience living in " + selectedRegionalValue + " regions." +
+         "The Content Type is " + selectedContentType;
+  
+        //console.log(dalle_prompt);
+  
+        
+       const response = await axios.get('http://localhost:3000/api/imageGeneratorApioai', {
+          params: {
+            size: selectedSizeValue,
+            n: noi,
+            prompt: dalle_prompt,
+          },
+        });
+        setResult(response.data);
+  
+        setLoading(2);
+      } catch (error) {
+        console.error('Error making Generate Image API call:', error);
+        setLoading(3);
+        //onSessionComplete(false);
+      }*/
+
+      const formData = {
+        targetAudience: ta,
+        gender: selectedGenderValue,
+        seasonal: selectedSeasonalValue,
+        regional: selectedRegionalValue,
+        occasion: selectedOccasionValue,
+        description: message,
+        contentType: selectedContentType,
+        color: selectedColor,
+        size: selectedSizeValue,
+        imageCount: noi,
+        loading: loading,
+        page: "new"
+      };
+
+
+      router.push({
+        pathname: '/GenerateImg',
+        query: formData
+      });
+    }
     /*setMessageError('');
     setSizeError('');
     setNOIError('');
@@ -185,33 +214,33 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
        " gender(s). The picture's theme is " + selectedSeasonalValue + 
        " applicable to audience living in " + selectedRegionalValue + " regions." +
        "The Content Type is " + selectedContentType;*/
-       /*"Generate an image of " + message + " which is suitable for a target audience aged " +  ta +
-      ", with a possibility of " + (selectedGenderValue === "Both" ? "both male and female" : selectedGenderValue) + " viewers." +
-      (selectedSeasonalValue && selectedRegionalValue ? ("The image should be seasonal, capturing the essence of " + selectedSeasonalValue + ", and have a regional focus on " + selectedRegionalValue)  : "") +
-      (selectedSeasonalValue && !selectedRegionalValue ? ("The image should be seasonal, capturing the essence of " + selectedSeasonalValue): "") +
-      (selectedRegionalValue && !selectedSeasonalValue ? ("The image should have a regional focus on " + selectedRegionalValue): "") +
-      (selectedOccasionValue ? (".It should depict an occasion, specifically a " + selectedOccasionValue) : ("")) +
-      (selectedContentType ? ".The content type of should be " + selectedContentType : "") +
-      (selectedColor ? ".The color of the image should be " + selectedColor : "") ;*/
+    /*"Generate an image of " + message + " which is suitable for a target audience aged " +  ta +
+   ", with a possibility of " + (selectedGenderValue === "Both" ? "both male and female" : selectedGenderValue) + " viewers." +
+   (selectedSeasonalValue && selectedRegionalValue ? ("The image should be seasonal, capturing the essence of " + selectedSeasonalValue + ", and have a regional focus on " + selectedRegionalValue)  : "") +
+   (selectedSeasonalValue && !selectedRegionalValue ? ("The image should be seasonal, capturing the essence of " + selectedSeasonalValue): "") +
+   (selectedRegionalValue && !selectedSeasonalValue ? ("The image should have a regional focus on " + selectedRegionalValue): "") +
+   (selectedOccasionValue ? (".It should depict an occasion, specifically a " + selectedOccasionValue) : ("")) +
+   (selectedContentType ? ".The content type of should be " + selectedContentType : "") +
+   (selectedColor ? ".The color of the image should be " + selectedColor : "") ;*/
 
-      //console.log(dalle_prompt);
+    //console.log(dalle_prompt);
 
-      
-     /* const response = await axios.get('http://localhost:3000/api/imageGeneratorApioai', {
-        params: {
-          size: selectedSizeValue,
-          n: noi,
-          prompt: dalle_prompt,
-        },
-      });
-      setResult(response.data);
 
-      setLoading(2);
-    } catch (error) {
-      console.error('Error making Generate Image API call:', error);
-      setLoading(3);
-      //onSessionComplete(false);
-    }*/
+    /* const response = await axios.get('http://localhost:3000/api/imageGeneratorApioai', {
+       params: {
+         size: selectedSizeValue,
+         n: noi,
+         prompt: dalle_prompt,
+       },
+     });
+     setResult(response.data);
+
+     setLoading(2);
+   } catch (error) {
+     console.error('Error making Generate Image API call:', error);
+     setLoading(3);
+     //onSessionComplete(false);
+   }*/
 
     /*try {
 
@@ -361,7 +390,7 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
                 </ul>
               )}
             </div>
-           {/*} <div className="radiobuttonGroup3">
+            {/*} <div className="radiobuttonGroup3">
 
               <button className={selectedOccasionValue === 'north america' ? "radiobuttonselected" : "radiobutton"} onClick={() => handleOccasionClick('north america')}>
                 Breakfast
@@ -404,7 +433,7 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
           SPECIFICATION
         </div>
         <div className="form-contents">
-          
+
 
           <div className="form-row">
             <label htmlFor="contentType">Content Type</label>
@@ -447,8 +476,8 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
                 Pastels
               </button>
               </div>*/}
-              <div className="space-padding3"></div>
-              <div className="dropdown-containernew">
+            <div className="space-padding3"></div>
+            <div className="dropdown-containernew">
               <div className={`dropdownnew ${isColorDDOpen ? 'open' : ''}`} onClick={toggleColorDD}>
                 <span>{selectedColor || 'Select an option'}</span>
                 <span className="dropdown-arrow">&#9660;</span>
@@ -498,12 +527,12 @@ const DalleFormNew: React.FC<DalleFormProps> = ({ onSessionComplete }) => {
         </div>
       </div>
       <div className="error-container">
-      {messageError ? (<p>{messageError}</p>):null}
+        {messageError ? (<p>{messageError}</p>) : null}
       </div>
 
       <div>
 
-      {/*}  <div className="form-container">
+        {/*}  <div className="form-container">
           {loading === 0 ? (
             <h2 style={{ color: 'black', textAlign: 'center' }}>Generated images will appear here...</h2>
           ) : loading === 1 ? (
