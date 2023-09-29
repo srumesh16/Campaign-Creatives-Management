@@ -16,6 +16,8 @@ interface ApiResponse {
     data: ImageData[];
 }
 
+
+
 export default function GenerateImg() {
     const router = useRouter();
     const { query } = router;
@@ -32,7 +34,8 @@ export default function GenerateImg() {
         color,
         size,
         imageCount,
-        loading
+        loading, 
+        page
     } = query;
 
 
@@ -40,18 +43,32 @@ export default function GenerateImg() {
     const [ta, setTa] = useState(targetAudience);
     const [message, setMessage] = useState(description);
     const [noi, setNoi] = useState(imageCount);
-    const [load, setLoad] = useState('1');
-    const [result, setResult] = useState<ApiResponse | null>(null);
+    const [load, setLoad] = useState(loading);
+    const [result, setResult] = useState<ApiResponse | null>();
     const [selectedContentType, setContentType] = useState<string | null>(contentType);
+    const [selectedGenderValue, setSelectedGenderValue] = useState<string | null>(gender);
+    const [selectedSeasonalValue, setSelectedSeasonalValue] = useState<string | null>(seasonal);
+    const [selectedRegionalValue, setSelectedRegionalValue] = useState<string | null>(regional);
+    const [selectedOccasionValue, setSelectedOccasionValue] = useState<string | null>(occasion);
+    const [selectedColor, setColor] = useState<string | null>(color);
+    const [selectedSizeValue, setSelectedSizeValue] = useState<string | null>(size);
+    const [callApi, setCallApi] = useState(true);
+
+    const[selectedImagesCount, setSelectedImagesCount] = useState(0);
+    const[selectedImageUrl, setSelectedImageUrl] = useState<string[]>([]);
+    const handleSelectedImagesCountChange = (count: number, selectedUrls: string[]) => {
+        setSelectedImagesCount(count);
+        setSelectedImageUrl(selectedUrls);
+    }
     const handleContentTypeonClick = (value: string) => {
         setContentType(value);
     };
 
-    const [selectedGenderValue, setSelectedGenderValue] = useState<string | null>(gender);
+    
     const handleGenderClick = (value: string) => {
         setSelectedGenderValue(value);
     };
-    const [selectedSeasonalValue, setSelectedSeasonalValue] = useState<string | null>(seasonal);
+    
     const seasonalOptions = ['New Years', 'Valentines Day', 'Easter', 'July 4th', 'Labor day', 'Halloween', 'Thanksgiving', 'Chirstmas'];
     const [isSeasonalDDOpen, setIsSeasonalDDOpen] = useState(false);
     const toggleSeasonalDD = () => {
@@ -63,7 +80,7 @@ export default function GenerateImg() {
         setIsSeasonalDDOpen(!isSeasonalDDOpen);
     };
 
-    const [selectedRegionalValue, setSelectedRegionalValue] = useState<string | null>(regional);
+   
     const RegionalOptions = ['North America', 'South America', 'Europe', 'Asia', 'Africa', 'Australia'];
     const [isRegionalDDOpen, setIsRegionalDDOpen] = useState(false);
     const toggleRegionalDD = () => {
@@ -76,7 +93,7 @@ export default function GenerateImg() {
     };
 
 
-    const [selectedOccasionValue, setSelectedOccasionValue] = useState<string | null>(occasion);
+    
     const OccasionalOptions = ['Breakfast', 'Lunch', 'Dinner', 'Office Party', 'Birthday Party'];
     const [isOccasionalDDOpen, setIsOccasionalDDOpen] = useState(false);
     const toggleOccasionalDD = () => {
@@ -88,7 +105,7 @@ export default function GenerateImg() {
         setIsOccasionalDDOpen(!isOccasionalDDOpen);
     };
 
-    const [selectedColor, setColor] = useState<string | null>(color);
+    
     const ColorOptions = ['None', 'Black & White', 'Muted', 'Warm', 'Cool', 'Vibrant', 'Pastels'];
     const [isColorDDOpen, setIsColorDDOpen] = useState(false);
     const toggleColorDD = () => {
@@ -100,7 +117,7 @@ export default function GenerateImg() {
         setIsColorDDOpen(!isColorDDOpen);
     };
 
-    const [selectedSizeValue, setSelectedSizeValue] = useState<string | null>(size);
+    
     const handleSizeonClick = (value: string) => {
         setSelectedSizeValue(value);
     };
@@ -111,7 +128,7 @@ export default function GenerateImg() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-
+                console.log("CALLING API");
                 let dalle_prompt = "A " + selectedColor + " toned picture of " + message +
                     ". This picture should be targetted to an audience with an age range between " + ta +
                     " and toward  " + selectedGenderValue +
@@ -126,6 +143,7 @@ export default function GenerateImg() {
                         prompt: dalle_prompt,
                     },
                 });
+                console.log(response.data);
                 setResult(response.data);
                 setLoad('2');
 
@@ -138,36 +156,7 @@ export default function GenerateImg() {
         fetchData();
     }, []);
 
-    /*const handleButtonClick = async () =>{
-
-        setLoad('1');
-        try {
-
-            let dalle_prompt = "A " + selectedColor + " toned picture of " + message + 
-            ". This picture should be targetted to an audience with an age range between " + ta +
-             " and toward  " + selectedGenderValue + 
-             " gender(s). The picture's theme is " + selectedSeasonalValue + 
-             " applicable to audience living in " + selectedRegionalValue + " regions." +
-             "The Content Type is " + selectedContentType;
-      
-            console.log(dalle_prompt);
-           const response = await axios.get('http://localhost:3000/api/imageGeneratorApioai', {
-              params: {
-                size: selectedSizeValue,
-                n: noi,
-                prompt: dalle_prompt,
-              },
-            });
-            setResult(response.data);
-      
-            setLoad('2');
-          } catch (error) {
-            console.error('Error making Generate Image API call:', error);
-            setLoad('3');
-            //onSessionComplete(false);
-          }
-
-    };*/
+   
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { id, value } = e.target;
 
@@ -189,7 +178,7 @@ export default function GenerateImg() {
     };
     return (
         <main>
-            <Header />
+            <Header selectedImageCount={selectedImagesCount} selectedImages={selectedImageUrl}/>
             <div className="app-container">
                 <div className="sidebar-container2">
                     <div className="config-container">
@@ -277,12 +266,13 @@ export default function GenerateImg() {
                 </div>
                 <div className="chat-container">
                     <div className="banner-header2">
-                        <p>CREATIVE RECOMMENDATIONS</p>
+                        <p>CREATIVE RECOMMENDATIONS</p> 
+                        
                     </div>
                     <hr className="sidebar-divider"></hr>
                     
                         {load === '0' ? (
-                            <h2 style={{ color: 'black', textAlign: 'center' }}>Generated images will appear here...</h2>
+                            <Loading />
                         ) : load === '1' ? (
                             <div style={{
                                 display: 'flex',
@@ -293,7 +283,7 @@ export default function GenerateImg() {
                                 <Loading />
                             </div>
                         ) : load === '2' && result !== null ? (
-                            <GeneratedImages2 data={result.data} />
+                            <GeneratedImages2 data={result.data}  onSelectedImagesCountChange={handleSelectedImagesCountChange}/>
                         ) : (
                             <h2 style={{ color: 'black' }}>Error while calling API</h2>
                         )
