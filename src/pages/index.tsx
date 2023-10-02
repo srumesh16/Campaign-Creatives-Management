@@ -9,6 +9,7 @@ export default function Home() {
   useEffect(() => {
 
     if(session){
+      //check for token and navigate to homepage
       router.push('/homepage');
     } else {
       router.push('/login');

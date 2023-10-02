@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { FaCloudUploadAlt, FaRegTrashAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 interface SCFileUploadProps {
   onFileUpload: (url: string) => void; // Function to pass the URL to the parent component
@@ -24,7 +25,7 @@ const SCFileUpload: React.FC<SCFileUploadProps> = ({ onFileUpload }) => {
 
       if (selectedFile) {
         
-          
+         // const response = await axios.get('http://localhost:3000/api/convertFiletoUrl')
 
        
 
@@ -42,7 +43,8 @@ const SCFileUpload: React.FC<SCFileUploadProps> = ({ onFileUpload }) => {
   };
 
   return (
-    <div>
+    <div className="sc-image-gallery-container">
+     
       <div className="sc-uploadContainer">
         <input
           type="file"
@@ -73,6 +75,7 @@ const SCFileUpload: React.FC<SCFileUploadProps> = ({ onFileUpload }) => {
             borderRadius: '5px',
             marginTop: '10px',
             marginLeft: '50px',
+            width: '100px'
           }}
         >
           Uploaded File: {uploadedFileName}

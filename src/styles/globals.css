@@ -182,7 +182,7 @@ body {
 }
 .sc-uploadContainer {
   display: flex;
-  width: 100%;
+  width: 125px;
   align-items: right;
   color: white;
   justify-content: flex-start;
@@ -192,8 +192,8 @@ body {
 
 .uploadIcon {
   font-size: 30px;
-  padding-left: 5px;
   color: black;
+  cursor: pointer; /* Add cursor pointer to indicate clickability */
 }
 
 .uploadText{
@@ -1636,6 +1636,7 @@ a {
   color: black;
   text-decoration: underline;
   margin-left: 10px;
+  cursor: pointer; /* Add cursor pointer to indicate clickability */
 }
 
 .login-container {
@@ -1875,13 +1876,23 @@ input[type="password"] {
 }
 
 .sc-image-gallery-container {
-  height: 100%; /* Take up the height of the parent container */
-  max-height: 670px;
-  overflow-x: auto;
+  height: auto; /* Take up the height of the parent container */
+  max-height: 220px;
   overflow-y: auto;
   white-space: nowrap;
   padding: 10px;
   margin: 10px;
+  border: 2px solid #f46f22;
+  border-radius: 3px;
+}
+.sc-logo-gallery-container {
+  height: 100px; /* Set a fixed height of 200px */
+  display: flex; /* Display items in a row */
+  align-items: center; /* Vertically center items */
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid #f46f22;
+  border-radius: 3px;
 }
 
 .sc-image-gallery {
@@ -1892,10 +1903,10 @@ input[type="password"] {
 }
 
 .sc-image-item {
-  flex: 0 0 calc(50% - 10px); /* Two images per row, with margin */
-  max-width: calc(50% - 10px); /* Two images per row, with margin */
+  flex: 0 0 calc(33.33% - 10px); 
+  max-width: calc(33.33% - 10px); 
   box-sizing: border-box;
-  margin: 5px; /* Adjust margin for spacing */
+  margin: 5px;
 }
 
 .sc-img {
@@ -1935,4 +1946,9 @@ input[type="password"] {
   border-radius: 3px;
   box-sizing: border-box;
   padding: 10px;
+}
+.sc-sidebar-section {
+  border: 2px solid #f46f22;
+  border-radius: 30px;
+  height: 500px;
 }

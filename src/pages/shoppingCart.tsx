@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { useRouter } from 'next/router';
 import Header from '@/components/header';
-import ShoppingCartImages from '@/components/shoppingCartImages';
+import ShoppingCartImages from '../components/ShoppingCartImages';
 import { FaArrowLeft  } from 'react-icons/fa';
-import SCFileUpload from '@/components/SCFileUpload';
+import SCFileUploadThumb from '@/components/SCFileUploadThumb';
 
 
 export default function ShoppingCart() {
@@ -14,13 +14,17 @@ export default function ShoppingCart() {
 
   const [offeringMsg, setOfferingMsg] = useState("");
   const [cta, setCTA] = useState("");
-  const [fileUrl, setFileUrl] = useState<string | null>(null);
+  const [pFileUrl, setPFileUrl] = useState<string | null>(null);
+  const [bFileUrl, setBFileUrl] = useState<string | null>(null);
 
-  const handleFileUpload = (url: string) => {
+  const handleProductFileUpload = (url: string) => {
     // This function will receive the URL from SCFileUpload component
-    setFileUrl(url);
+    setPFileUrl(url);
   };
 
+  const handleBrandFileUpload = (url:string) => {
+    setBFileUrl(url);
+  }
   const handleAssignClick = () =>{}
   
   const urlList = Array.isArray(url) ? url : [url];
@@ -42,8 +46,22 @@ export default function ShoppingCart() {
         <div className="space-between"></div>
         <div className="sc-parent-container">
           <div className="sc-sidebar-container">
-            
+          <div className="banner-header2">
+            <p> CREATIVES </p>
+          </div>
             <ShoppingCartImages urls={url} />
+            <div className="space-padding"></div>
+            <hr className="sidebar-divider"></hr>
+            <div className="banner-header2">
+            <p> PRODUCT IMAGE </p>
+          </div>
+          <SCFileUploadThumb  onFileUpload={handleProductFileUpload} />
+          <div className="space-padding"></div>
+            <hr className="sidebar-divider"></hr>
+          <div className="banner-header2">
+            <p> BRAND IMAGE </p>
+          </div>
+          <SCFileUploadThumb  onFileUpload={handleBrandFileUpload} />
           </div>
           <div className="sc-sidebar-container">
             <div className="space-padding"></div>
@@ -57,16 +75,6 @@ export default function ShoppingCart() {
               <input className="basic-input-field" type="text" id="cta" value={cta}></input>
             </div>
             <div className="space-padding"></div>
-            <div className="form-row">
-              <label htmlFor="ProductImg">Product Image<span className="required">*</span></label>
-              <SCFileUpload  onFileUpload={handleFileUpload} />
-              File Upload: {fileUrl}
-            </div>
-            <div className="form-row">
-              <label htmlFor="CompanyLogo">Company Logo<span className="required">*</span></label>
-              <SCFileUpload  onFileUpload={handleFileUpload} />
-              File upload: {fileUrl}
-            </div>
             <div className="form-row">
               <label htmlFor="asignee">Asignee Email<span className="required">*</span></label>
               <input className="basic-input-field" type="text" id="cta" value={cta}></input>
