@@ -10,7 +10,7 @@ export default function Home() {
 
     if(session){
       //check for token and navigate to homepage
-      router.push('/homepage');
+      router.push('/CreativeBriefList');
     } else {
       router.push('/login');
     }

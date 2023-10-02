@@ -90,13 +90,14 @@ const SCFileUploadThumb: React.FC<SCFileUploadProps> = ({ onFileUpload }) => {
           style={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'flex-start',
             color: 'black',
             padding: '10px',
             border: '1px solid #ccc',
             borderRadius: '5px',
             marginTop: '10px',
             marginBottom: '10px',
-            marginLeft: '180px',
+            marginLeft: '180px'
           }}
         >
           {thumbnailUrl && (

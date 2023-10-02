@@ -25,7 +25,9 @@ export default function ShoppingCart() {
   const handleBrandFileUpload = (url:string) => {
     setBFileUrl(url);
   }
-  const handleAssignClick = () =>{}
+  const handleAssignClick = () =>{
+    router.push('/CreativeBriefList')
+  }
   
   const urlList = Array.isArray(url) ? url : [url];
 

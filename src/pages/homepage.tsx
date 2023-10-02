@@ -2,7 +2,7 @@ import Header from '../components/header';
 import FileUpload from '@/components/FileUpload';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import ImageGallery2 from '../components/ImageGallery2';
-import { FaCloudUploadAlt } from 'react-icons/fa';
+import { FaCloudUploadAlt, FaArrowLeft } from 'react-icons/fa';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -192,6 +192,9 @@ export default function Home() {
     setRefreshGallery((prev) => !prev);
 
   }
+  const handleBackClick = () => {
+    router.push('/CreativeBriefList');
+  }
 
   const handleSessionComplete = (success: boolean) => {
     
@@ -250,10 +253,12 @@ export default function Home() {
       <div className="app-container">
 
         <div className="sidebar-container">
-
+          
           <div className="banner-header">
+            <FaArrowLeft className="left-arrow" onClick={handleBackClick}/>
             <p> AD BANNER TEMPLATES </p>
           </div>
+          
 
           <p className="sub-text"> Choose a template </p>
 
