@@ -15,8 +15,8 @@ const readFile = (
 ): Promise<{ fields: formidable.Fields; files: formidable.Files }> => {
   const options: formidable.Options = {};
   if (saveLocally) {
-    const fileLocation  = req.query.fileLocation as string;
-    options.uploadDir = path.join(process.cwd(), 'public',fileLocation);
+    const fileLocation = req.query.fileLocation as string;
+    options.uploadDir = path.join(process.cwd(), 'public', fileLocation);
     options.filename = (name, ext, path, form) => {
       return Date.now().toString() + "_" + path.originalFilename;
     };
@@ -33,11 +33,11 @@ const readFile = (
 
 const handler: NextApiHandler = async (req, res) => {
   try {
-    const fileLocation  = req.query.fileLocation as string;
-    await fs.readdir(path.join(process.cwd(), 'public',fileLocation));
+    const fileLocation = req.query.fileLocation as string;
+    await fs.readdir(path.join(process.cwd(), 'public', fileLocation));
   } catch (error) {
-    const fileLocation  = req.query.fileLocation as string;
-    await fs.mkdir(path.join(process.cwd(), 'public',fileLocation));
+    const fileLocation = req.query.fileLocation as string;
+    await fs.mkdir(path.join(process.cwd(), 'public', fileLocation));
   }
   await readFile(req, true);
   res.json({ done: "ok" });

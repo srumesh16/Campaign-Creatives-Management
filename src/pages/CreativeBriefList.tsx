@@ -29,9 +29,7 @@ export default function CreativeBriefList() {
               <tr>
                 <th>ID</th>
                 <th>Offering Message</th>
-                <th>Product Image</th>
-                <th>Brand Image</th>
-                <th>Creative List</th>
+                <th>Click to Action</th>
                 <th>Assigned To</th>
                 <th>Action</th>
               </tr>

@@ -101,6 +101,10 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
     console.log(selectedColor);
     setIsColorDDOpen(!isColorDDOpen);
   };
+  const handleSelectedImagesCountChange = (count: number, selectedUrls: string[]) => {
+    //setSelectedImagesCount(count);
+    //setSelectedImageUrl(selectedUrls);
+}
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { id, value } = e.target;
@@ -494,7 +498,7 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
             ) : loading === 1 ? (
               <h2 style={{ color: 'black', textAlign: 'center' }}>Generating images for "A {selectedColor} toned picture of {message}. The Content Type is {selectedContentType}. This picture should be targetted to an audience with an age range between {ta} and toward {selectedGenderValue} genders. The theme of this picture is {theme}"</h2>
             ) : loading === 2 && result !== null ? (
-              <GeneratedImages2 data={result.data} />
+              <GeneratedImages2 data={result.data} onSelectedImagesCountChange={handleSelectedImagesCountChange}/>
             ) : (
               <h2 style={{ color: 'black' }}>Error while calling API</h2>
             )

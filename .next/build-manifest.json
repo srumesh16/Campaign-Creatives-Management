@@ -30,10 +30,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/shoppingCart": [
+    "/homepage": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/shoppingCart.js"
+      "static/chunks/pages/homepage.js"
     ]
   },
   "ampFirstPages": []
