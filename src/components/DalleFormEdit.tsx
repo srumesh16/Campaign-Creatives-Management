@@ -158,7 +158,7 @@ const DalleFormEdit: React.FC<DalleFormProps> = ({ folderName, template, size, o
     try {
 
 
-      const response = await axios.get('http://localhost:3000/api/imageEditorApi', {
+      const response = await axios.get('/api/imageEditorApi', {
         params: {
           folerName: folderName,
           image: template,

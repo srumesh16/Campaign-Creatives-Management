@@ -9,7 +9,7 @@ const ImageEditor: React.FC = () => {
     const [urls, setUrls] = useState<string[]>([]);
     const handleButtonClick = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/imageEditorApi');
+            const response = await axios.get('api/imageEditorApi');
             setResult(JSON.stringify(response.data, null, 2));
         } catch (error) {
             console.error('Error making API call:', error);

@@ -13,18 +13,17 @@ export default function CreativeBriefList() {
   return (
     <div>
       <Header selectedImageCount={selectedImageCount} selectedImages={url} />
-      <div className="app-container">
+      
         <div className="chat-container2">
-          <div className="space-padding"></div>
-          <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
-            CREATIVE BRIEF LIST
-          </div>
-          <div>
-            <div className="space-padding"></div>
-            <button className="new-button" onClick={handleButtonClick}>
-              <p>New Creative</p>
-            </button>
-          </div>
+        <div className="header-banner">
+          <div className="header-heading">CREATIVE BRIEF LIST</div>     
+        </div>
+        <div className="space-padding"></div>
+        <button className="new-button" onClick={handleButtonClick}>
+              <p>New Creative Brief</p>
+        </button>
+        <div className="cb-container">
+          <div className="sc-sidebar-container">
           <table className="creative-brief-table">
             <thead>
               <tr>
@@ -39,8 +38,17 @@ export default function CreativeBriefList() {
             </thead>
             <tbody></tbody>
           </table>
+
+          </div>
+          <div className="sc-sidebar-container">
+            </div>       
         </div>
-      </div>
+        
+        
+        
+        </div>
+      
     </div>
   );
+  
 }

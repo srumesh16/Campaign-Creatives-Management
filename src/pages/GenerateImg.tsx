@@ -1,4 +1,3 @@
-// pages/result.tsx
 import Header from '@/components/header';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
@@ -136,7 +135,7 @@ export default function GenerateImg() {
                     " applicable to audience living in " + selectedRegionalValue + " regions." +
                     "The Content Type is " + selectedContentType;
 
-                const response = await axios.get('http://localhost:3000/api/imageGeneratorApioai', {
+                const response = await axios.get('/api/imageGeneratorApioai', {
                     params: {
                         size: selectedSizeValue,
                         n: noi,

@@ -362,18 +362,26 @@ body {
 .work-bench-button p {
   color: white;
 }
+
 .new-button {
   max-width: 300px;
   height: 28px;
-  width: 120px;
+  width: 160px;
   border-radius: 4px;
   background-color: #f46f22;
   border: 1px solid black;
-  
+  position: absolute;
+  top: 0;
+  right: 10px; 
+  margin-right: 10px; 
+  margin-top: 20px;
 }
+
 .new-button p {
   color: white;
 }
+
+
 
 
 
@@ -1882,6 +1890,7 @@ input[type="password"] {
   font-size: 24px;
   cursor: pointer;
   margin-left: 5px;
+  order: -1;
 }
 
 .header-style{
@@ -1931,6 +1940,8 @@ input[type="password"] {
   display: flex; /* Use flexbox */
   align-items: center; /* Vertically center the items */
   height: 20px;
+  padding-top: 15px;
+  margin-top: 10px;
 }
 
 .header-heading {
@@ -1941,8 +1952,11 @@ input[type="password"] {
 }
 
 .left-arrow2 {
-  order: -1;
+  position: absolute;
+  top: 1;
+  left: 0;
   font-size: 24px;
+  margin-left: 5px;
 }
 
 .right-button-container {
@@ -1992,6 +2006,8 @@ input[type="password"] {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
+  width: 600px;
+  justify-content: center;
 }
 
 .creative-brief-table th {
@@ -2003,4 +2019,25 @@ input[type="password"] {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
+}
+.cb-container {
+  display: flex;
+}
+
+/* Left section */
+.cb-left-section {
+  flex: 1; 
+  overflow-y: auto; 
+  max-height: 100vh; 
+  width: 700px;
+  padding: 20px; 
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+/* Right section */
+.cb-right-section {
+  flex: 2; /* Make it twice as wide as the left section */
+  padding: 20px; /* Add some padding */
+  background-color: #e0e0e0;
 }
