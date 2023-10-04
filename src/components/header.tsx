@@ -14,6 +14,7 @@ const header: React.FC<HeaderProps> = ({selectedImageCount, selectedImages}) => 
 
   const{data:session} = useSession();
   const router = useRouter();
+  
 
   const handleSignOut = async() =>{
     await signOut({ callbackUrl: "/login"});

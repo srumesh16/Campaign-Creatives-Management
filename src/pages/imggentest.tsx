@@ -15,11 +15,11 @@ const jsonData = {
       }
     ]
   };
-
+const handleCountChange = () => {}
 function App() {
   return (
     <div>
-      <GeneratedImages2 data={jsonData.data} />
+      <GeneratedImages2 data={jsonData.data} onSelectedImagesCountChange={handleCountChange} />
     </div>
   );
 }

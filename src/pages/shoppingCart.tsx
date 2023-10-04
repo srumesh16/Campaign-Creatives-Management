@@ -14,8 +14,12 @@ export default function ShoppingCart() {
   const { query } = router;
   const { url, count } = query;
   const uList = url as string[];
- 
-  const selectedImageCount = parseInt(count, 10) || 0;
+  const stringifiedQuery = {
+    count: count?.toString() || '',
+    url: url?.toString() || ''
+};
+
+  const selectedImageCount = parseInt(stringifiedQuery.count, 10) || 0;
   const {data:session} = useSession();
   const userName = session?.user?.email?.split("@")[0];
 
@@ -57,7 +61,9 @@ export default function ShoppingCart() {
     }
   };
 
-  const urlList = Array.isArray(url) ? url : [url];
+ 
+  const urlList = Array.isArray(stringifiedQuery.url) ? stringifiedQuery.url : [stringifiedQuery.url];
+ 
 
   const handleSelectedImagesCountChange = () => { };
 
